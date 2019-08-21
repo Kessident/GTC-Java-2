@@ -11,6 +11,10 @@ public class Car {
         this.make = make;
         this.model = model;
     }
+    public Car(Car car) {
+        this.make = car.make;
+        this.model = car.model;
+    }
 
     public String getMake() {
         return this.make;
@@ -26,5 +30,13 @@ public class Car {
 
     public void setModel(String model) {
         this.model = model;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+            "make='" + make + '\'' +
+            ", model='" + model + '\'' +
+            '}';
     }
 }

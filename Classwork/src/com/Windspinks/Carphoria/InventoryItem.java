@@ -3,15 +3,18 @@ package com.Windspinks.Carphoria;
 public class InventoryItem {
     private Car vehicle;
     private double price;
-    private int itemNumber;
+    private static int itemNumber = 1000;
 
     public InventoryItem() {
     }
-
-    public InventoryItem(Car vehicle, double price, int itemNumber) {
+    public InventoryItem(Car vehicle, double price) {
         this.vehicle = vehicle;
         this.price = price;
-        this.itemNumber = itemNumber;
+        getNextItemNumber();
+    }
+    public InventoryItem(InventoryItem invItem) {
+        this.vehicle = invItem.vehicle;
+        this.price = invItem.price;
     }
 
     public Car getVehicle() {
@@ -19,7 +22,7 @@ public class InventoryItem {
     }
 
     public void setVehicle(Car vehicle) {
-        this.vehicle = vehicle;
+        this.vehicle = new Car(vehicle);
     }
 
     public double getPrice() {
@@ -36,5 +39,17 @@ public class InventoryItem {
 
     public void setItemNumber(int itemNumber) {
         this.itemNumber = itemNumber;
+    }
+
+    private void getNextItemNumber() {
+        itemNumber += 1;
+    }
+
+    @Override
+    public String toString() {
+        return "InventoryItem{" +
+            "vehicle=" + vehicle +
+            ", price=" + price +
+            '}';
     }
 }
