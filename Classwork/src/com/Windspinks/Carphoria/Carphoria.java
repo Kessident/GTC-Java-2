@@ -1,25 +1,25 @@
 package com.Windspinks.Carphoria;
 
 public class Carphoria {
-    private Object[] inventory;
+    private InventoryItem[] inventory;
 
     private static String companyName;
 
 
     public Carphoria() {
-        inventory = new Object[1];
+        inventory = new InventoryItem[1];
     }
 
     public Carphoria(int inventoryNum) {
-        inventory = new Object[inventoryNum];
+        inventory = new InventoryItem[inventoryNum];
     }
 
 
-    public Object[] getInventory() {
+    public InventoryItem[] getInventory() {
         return inventory;
     }
 
-    public void setInventory(Object[] inventory) {
+    public void setInventory(InventoryItem[] inventory) {
         this.inventory = inventory;
     }
 
