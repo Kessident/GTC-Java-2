@@ -13,7 +13,7 @@ public class Car {
     }
 
     public String getMake() {
-        return make;
+        return this.make;
     }
 
     public void setMake(String make) {
@@ -21,7 +21,7 @@ public class Car {
     }
 
     public String getModel() {
-        return model;
+        return this.model;
     }
 
     public void setModel(String model) {

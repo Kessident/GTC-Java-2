@@ -15,7 +15,7 @@ public class InventoryItem {
     }
 
     public Car getVehicle() {
-        return vehicle;
+        return this.vehicle;
     }
 
     public void setVehicle(Car vehicle) {
@@ -23,7 +23,7 @@ public class InventoryItem {
     }
 
     public double getPrice() {
-        return price;
+        return this.price;
     }
 
     public void setPrice(double price) {
@@ -31,7 +31,7 @@ public class InventoryItem {
     }
 
     public int getItemNumber() {
-        return itemNumber;
+        return this.itemNumber;
     }
 
     public void setItemNumber(int itemNumber) {
