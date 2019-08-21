@@ -7,15 +7,7 @@ public class CarphoriaDriver {
         initInventory(carphoria);
 
         System.out.println("Welcome to Carphoria!");
-        System.out.println("We currently have the following vehicles in inventory");
-
-        //14, 10, 12, 8
-        System.out.printf("%-14s %-10s %-12s %-8s\n", "Item Number", "Make", "Model", "Price");
-        for (InventoryItem item : carphoria.getInventory()) {
-            if (item != null) {
-                System.out.printf("%-14d %-10s %-12s %-8.2f\n", item.getItemNumber(), item.getVehicle().getMake(), item.getVehicle().getModel(), item.getPrice());
-            }
-        }
+        carphoria.displayInventory();
 
     }
 
