@@ -33,7 +33,7 @@ public class ParkingTicketSimulatorDriver {
         System.out.println(officer + " checking a " + car + ".");
 
         ParkingTicket newTicket = officer.writeTicket(car, meter);
-        if (newTicket != null){
+        if (newTicket != null) {
             System.out.println("Writing ticket");
             ParkingTicket ticketFour = officer.writeTicket(car, meter);
             listOfTickets.add(ticketFour);

@@ -5,7 +5,6 @@ public class RoomCarpet {
     private double carpetCost;
 
 
-
     public RoomCarpet(RoomDimension size, double carpetCost) {
         this.size = size;
         this.carpetCost = carpetCost;

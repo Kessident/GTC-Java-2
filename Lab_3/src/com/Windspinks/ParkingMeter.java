@@ -19,9 +19,4 @@ public class ParkingMeter {
         //MINUTES minutes paid for
         return String.format("%d minutes paid for", minutesPaidFor);
     }
-
-    //
-    public void payForMinutes(int moreMinutes) {
-        minutesPaidFor += moreMinutes;
-    }
 }
