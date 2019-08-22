@@ -11,9 +11,9 @@ public class Car {
         this.make = make;
         this.model = model;
     }
-    public Car(Car car) {
-        this.make = car.make;
-        this.model = car.model;
+    public Car(Car obj) {
+        this.make = obj.make;
+        this.model = obj.model;
     }
 
     public String getMake() {

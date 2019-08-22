@@ -4,7 +4,7 @@ public class InventoryItem {
     private Car vehicle;
     private double price;
     private int itemNumber;
-    private static int maxItemNumber = 1000;
+    private static int nextItemNumber = 1000;
 
     public InventoryItem() {
     }
@@ -13,10 +13,10 @@ public class InventoryItem {
         this.price = price;
         this.itemNumber = getNextItemNumber();
     }
-    public InventoryItem(InventoryItem invItem) {
-        this.vehicle = invItem.vehicle;
-        this.price = invItem.price;
-        this.itemNumber = invItem.itemNumber;
+    public InventoryItem(InventoryItem obj) {
+        this.vehicle = obj.vehicle;
+        this.price = obj.price;
+        this.itemNumber = obj.itemNumber;
     }
 
     public Car getVehicle() {
@@ -41,7 +41,7 @@ public class InventoryItem {
     }
 
     private int getNextItemNumber() {
-        return ++maxItemNumber;
+        return nextItemNumber++;
     }
 
     @Override
