@@ -1,5 +1,7 @@
 package com.Windspinks.Carphoria;
 
+import java.util.Arrays;
+
 public class Carphoria {
     private InventoryItem[] inventory;
     private int indexOfLast;
@@ -30,16 +32,11 @@ public class Carphoria {
     }
 
     public void addInventoryItem(InventoryItem newItem) {
-        //If not enough space remains in inventory array, create new array with 10 extra, copy everything over, then set new inventory
+        //If no more space, new array with 10 more elements, set new array as inventory
         if (indexOfLast == inventory.length) {
-            InventoryItem[] newInventoryList = new InventoryItem[inventory.length + 10];
-            int newInventoryCounter = 0;
+            InventoryItem[] newInventory = Arrays.copyOf(inventory, inventory.length + 10);
 
-            for (InventoryItem invItem : inventory) {
-                newInventoryList[newInventoryCounter] = new InventoryItem(invItem);
-            }
-
-            this.setInventory(newInventoryList);
+            this.setInventory(newInventory);
         }
 
         inventory[indexOfLast] = new InventoryItem(newItem);
@@ -51,10 +48,10 @@ public class Carphoria {
         System.out.println("We currently have the following vehicles in inventory");
 
         //14, 10, 12, 8
-        System.out.printf("%-14s %-10s %-12s %-8s\n", "Item Number", "Make", "Model", "Price");
+        System.out.printf("%-15s %-10s %-12s %-8s\n", "Item Number", "Make", "Model", "Price");
         for (InventoryItem item : inventory) {
             if (item != null) {
-                System.out.printf("%-14d %-10s %-12s %-8.2f\n", item.getItemNumber(), item.getVehicle().getMake(), item.getVehicle().getModel(), item.getPrice());
+                System.out.printf("%-15d %-10s %-12s %-8.2f\n", item.getItemNumber(), item.getVehicle().getMake(), item.getVehicle().getModel(), item.getPrice());
             }
         }
     }

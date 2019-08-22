@@ -1,5 +1,8 @@
 package com.Windspinks.Carphoria;
 
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class CarphoriaDriver {
 
     public static void main(String[] args) {
@@ -9,6 +12,11 @@ public class CarphoriaDriver {
         System.out.println("Welcome to Carphoria!");
         carphoria.displayInventory();
 
+        for (int i = 0; i < 17; i++) {
+            carphoria.addInventoryItem(getNewCar());
+        }
+
+        carphoria.displayInventory();
     }
 
     private static void initInventory(Carphoria carphoria) {
@@ -20,5 +28,16 @@ public class CarphoriaDriver {
 
         InventoryItem invItem3 = new InventoryItem(new Car("Ford", "Focus"), 15000.00);
         carphoria.addInventoryItem(invItem3);
+    }
+
+    private static InventoryItem getNewCar(){
+        String make;
+        String model;
+        int carPrice;
+        make = "Custom";
+        model = "Custom";
+        carPrice = ThreadLocalRandom.current().nextInt(10000, 100000);
+
+        return new InventoryItem(new Car(make, model), carPrice);
     }
 }
