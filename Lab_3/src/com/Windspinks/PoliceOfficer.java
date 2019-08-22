@@ -33,5 +33,4 @@ public class PoliceOfficer {
         //Officer NAME, badge number BADGENUMBER
         return String.format("Officer %s, badge number %s", name, badgeNum);
     }
-
 }

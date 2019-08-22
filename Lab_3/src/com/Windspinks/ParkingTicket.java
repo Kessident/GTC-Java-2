@@ -43,5 +43,4 @@ public class ParkingTicket {
         //Ticket issued to a CAR by OFFICER for PRICE
         return String.format("Ticket issued to a %s written by %s for $%,d", ticketedCar, issuingOfficer, getFineAmount());
     }
-
 }

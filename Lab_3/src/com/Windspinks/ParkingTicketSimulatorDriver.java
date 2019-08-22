@@ -39,5 +39,4 @@ public class ParkingTicketSimulatorDriver {
             listOfTickets.add(ticketFour);
         }
     }
-
 }
