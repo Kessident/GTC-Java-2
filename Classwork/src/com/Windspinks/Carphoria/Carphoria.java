@@ -43,6 +43,11 @@ public class Carphoria {
         indexOfLast++;
     }
 
+    public void addInventoryItem(Car car, int price) {
+        InventoryItem newInvItem = new InventoryItem(car, price);
+        addInventoryItem(newInvItem);
+    }
+
 
     public void displayInventory() {
         System.out.println("We currently have the following vehicles in inventory");
