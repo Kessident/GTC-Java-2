@@ -8,11 +8,13 @@ public class InventoryItem {
 
     public InventoryItem() {
     }
+
     public InventoryItem(Car vehicle, double price) {
         this.vehicle = vehicle;
         this.price = price;
         this.itemNumber = getNextItemNumber();
     }
+
     public InventoryItem(InventoryItem obj) {
         this.vehicle = obj.vehicle;
         this.price = obj.price;
@@ -22,6 +24,7 @@ public class InventoryItem {
     public Car getVehicle() {
         return this.vehicle;
     }
+
     public void setVehicle(Car vehicle) {
         this.vehicle = new Car(vehicle);
     }
@@ -29,6 +32,7 @@ public class InventoryItem {
     public double getPrice() {
         return this.price;
     }
+
     public void setPrice(double price) {
         this.price = price;
     }
@@ -36,6 +40,7 @@ public class InventoryItem {
     public int getItemNumber() {
         return this.itemNumber;
     }
+
     public void setItemnumber(int itemNumber) {
         this.itemNumber = itemNumber;
     }

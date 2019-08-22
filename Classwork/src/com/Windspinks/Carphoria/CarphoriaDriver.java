@@ -1,6 +1,5 @@
 package com.Windspinks.Carphoria;
 
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class CarphoriaDriver {
@@ -30,7 +29,7 @@ public class CarphoriaDriver {
         carphoria.addInventoryItem(invItem3);
     }
 
-    private static InventoryItem getNewCar(){
+    private static InventoryItem getNewCar() {
         String make;
         String model;
         int carPrice;

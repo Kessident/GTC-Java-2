@@ -44,7 +44,7 @@ public class Carphoria {
     }
 
 
-    public void displayInventory(){
+    public void displayInventory() {
         System.out.println("We currently have the following vehicles in inventory");
 
         //14, 10, 12, 8
