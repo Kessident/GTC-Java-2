@@ -1,17 +1,15 @@
 package com.Windspinks;
 
-public class PassFailExam extends PassFailActivity {
+public class FinalExam extends GradedActivity {
     private int numQuestions;
     private double pointsEach;
     private int numMissed;
 
-    public PassFailExam(int questions, int missed, double minPassing) {
-        super(minPassing);
-
+    public FinalExam(int questions, int missed) {
         double numericScore;
 
-        this.numQuestions = questions;
-        this.numMissed = missed;
+        numQuestions = questions;
+        numMissed = missed;
 
         pointsEach = 100.0 / questions;
         numericScore = 100.0 - (missed * pointsEach);
@@ -26,5 +24,4 @@ public class PassFailExam extends PassFailActivity {
     public int getNumMissed() {
         return numMissed;
     }
-
 }
