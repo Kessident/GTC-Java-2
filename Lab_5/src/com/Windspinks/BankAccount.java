@@ -1,5 +1,9 @@
 package com.Windspinks;
-
+/*
+ * Charles Dodge
+ * CIST 2372 CRN 23159
+ * Lab 05 Bank Account
+ */
 public abstract class BankAccount {
     protected double balance;
     protected int numDeposits;
@@ -15,7 +19,7 @@ public abstract class BankAccount {
         this.annualInterestRate = annualInterestRate_;
     }
 
-    public void deposit (double depositAmount) {
+    public void deposit(double depositAmount) {
         balance += depositAmount;
         numDeposits++;
     }

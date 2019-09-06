@@ -1,5 +1,9 @@
 package com.Windspinks;
-
+/*
+ * Charles Dodge
+ * CIST 2372 CRN 23159
+ * Lab 05 Course Grades
+ */
 public class PassFailExam extends PassFailActivity {
     private int numQuestions;
     private double pointsEach;
