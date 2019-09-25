@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Main {
 
@@ -30,57 +29,65 @@ public class Main {
 
         String currentPowerBallLine;
         String[] currentPBNums;//
-        int[] powerBallNumberFrequency = new int[69];
-        int[] powerBallPBNumberFrequency = new int[35];
+        Map<Integer, Integer> numberFrequency = new HashMap<>();
+        Map<Integer, Integer> powerBallFrequency = new HashMap<>();
 
         while (numbersScn.hasNext()) {
             currentPowerBallLine = numbersScn.nextLine();
-            currentPBNums = currentPowerBallLine.split(" ");
+            currentPBNums = currentPowerBallLine.split("\t");
 
             for (int i = 0; i < currentPBNums.length; i++) {
-                String s = currentPBNums[i];
-                int index = Integer.parseInt(s) - 1;
-                if (i == 5) {
-                    if (index < 35) //TODO: REMOVE - NECESSARY FOR THE DATA.GOV DATA SETS
-                    powerBallPBNumberFrequency[index]++;
+                Integer currentNum = Integer.parseInt(currentPBNums[i]);
+                if (i == 5) { //Powerball Number
+                    increaseFrequency(powerBallFrequency, currentNum);
                 } else {
-                    powerBallNumberFrequency[index]++;
+                    increaseFrequency(numberFrequency, currentNum);
                 }
             }
         }
 
+
         System.out.println("Frequency of regular numbers: ");
-        for (int i = 0; i < powerBallNumberFrequency.length; i++) {
-            System.out.println(i + ": " + powerBallNumberFrequency[i]);
+        System.out.println("Number | Frequency");
+        for (Map.Entry<Integer, Integer> entry : numberFrequency.entrySet()) {
+            System.out.println(entry.getKey() + "\t\t" + entry.getValue());
         }
 
         System.out.println("Frequency of PowerBall Numbers: ");
-        for (int i = 0; i < powerBallPBNumberFrequency.length; i++) {
-            System.out.println(i + ": " + powerBallPBNumberFrequency[i]);
+        System.out.println("Number | Frequency");
+        for (Map.Entry<Integer, Integer> entry : powerBallFrequency.entrySet()) {
+            System.out.println(entry.getKey() + "\t\t" + entry.getValue());
         }
 
-        List<Integer> list = IntStream.of(powerBallNumberFrequency).boxed().collect(Collectors.toList());
-        Map<Integer, Long> map = list.stream()
-            .collect(Collectors.groupingBy(w -> w, Collectors.counting()));
-
-        List<Map.Entry<Integer, Long>> mostCommonNumbers = map.entrySet().stream()
+        List<Map.Entry<Integer, Integer>> mostCommonNumbers = numberFrequency.entrySet().stream()
             .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
             .limit(10)
             .collect(Collectors.toList());
-        List<Map.Entry<Integer, Long>> leastCommonNumbers = map.entrySet().stream()
+
+        List<Map.Entry<Integer, Integer>> leastCommonNumbers = numberFrequency.entrySet().stream()
             .sorted(Map.Entry.comparingByValue(Comparator.naturalOrder()))
             .limit(10)
             .collect(Collectors.toList());
 
-
-        System.out.println("\nTop 10 most frequent numbers: ");
-        for (Map.Entry<Integer, Long> m: mostCommonNumbers) {
-            System.out.print(m.getKey() + " ");
+        System.out.println("\n--Top 10 most frequent numbers--");
+        System.out.println("Number\tFrequency");
+        for (Map.Entry<Integer, Integer> entry : mostCommonNumbers) {
+            System.out.println(entry.getKey() + "\t\t" + entry.getValue());
         }
 
-        System.out.println("\nTop 10 least frequent numbers: ");
-        for (Map.Entry<Integer, Long> m: leastCommonNumbers) {
-            System.out.print(m.getKey() + " ");
+        System.out.println("\n--Top 10 least frequent numbers--");
+        System.out.println("Number\tFrequency");
+        for (Map.Entry<Integer, Integer> entry : leastCommonNumbers) {
+            System.out.println(entry.getKey() + "\t\t" + entry.getValue());
+        }
+    }
+
+    private static void increaseFrequency(Map<Integer, Integer> map, Integer value) {
+        Integer frequency = map.get(value);
+        if (frequency == null) {
+            map.put(value, 1);
+        } else {
+            map.put(value, frequency + 1);
         }
     }
 }
