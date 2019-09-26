@@ -27,10 +27,13 @@ public class Main {
             }
         }
 
+
         String currentPowerBallLine;
-        String[] currentPBNums;//
+        String[] currentPBNums;
         Map<Integer, Integer> numberFrequency = new HashMap<>();
         Map<Integer, Integer> powerBallFrequency = new HashMap<>();
+        Map<Integer, Integer> powerBallLastPull = new HashMap<>();
+        Integer count = 0;
 
         while (numbersScn.hasNext()) {
             currentPowerBallLine = numbersScn.nextLine();
@@ -42,8 +45,10 @@ public class Main {
                     increaseFrequency(powerBallFrequency, currentNum);
                 } else {
                     increaseFrequency(numberFrequency, currentNum);
+                    powerBallLastPull.put(currentNum, count);
                 }
             }
+            count++;
         }
 
 
@@ -63,8 +68,11 @@ public class Main {
             .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
             .limit(10)
             .collect(Collectors.toList());
-
         List<Map.Entry<Integer, Integer>> leastCommonNumbers = numberFrequency.entrySet().stream()
+            .sorted(Map.Entry.comparingByValue(Comparator.naturalOrder()))
+            .limit(10)
+            .collect(Collectors.toList());
+        List<Map.Entry<Integer, Integer>> mostOverdueNumbers = powerBallLastPull.entrySet().stream()
             .sorted(Map.Entry.comparingByValue(Comparator.naturalOrder()))
             .limit(10)
             .collect(Collectors.toList());
@@ -79,6 +87,12 @@ public class Main {
         System.out.println("Number\tFrequency");
         for (Map.Entry<Integer, Integer> entry : leastCommonNumbers) {
             System.out.println(entry.getKey() + "\t\t" + entry.getValue());
+        }
+
+        System.out.println("\n--Top 10 most overdue numbers--");
+        System.out.println("Number\tWeeks Since Pulled");
+        for (Map.Entry<Integer, Integer> entry : mostOverdueNumbers) {
+            System.out.println(entry.getKey() + "\t\t" + (count - entry.getValue()));
         }
     }
 
