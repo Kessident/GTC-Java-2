@@ -6,8 +6,14 @@ public class Payroll {
     private double hourlyRate;
     private double hoursWorked;
 
-    public Payroll(String empName, int idNum) {
+    public Payroll(String empName, int idNum) throws InvalidNameException, InvalidIDException {
+        if (empName == null || empName.trim().isEmpty()) {
+            throw new InvalidNameException();
+        }
         this.empName = empName;
+        if (idNum <= 0) {
+            throw new InvalidIDException(idNum);
+        }
         this.idNum = idNum;
     }
 
@@ -15,7 +21,10 @@ public class Payroll {
         return empName;
     }
 
-    public void setEmpName(String empName) {
+    public void setEmpName(String empName) throws InvalidNameException {
+        if (empName == null || empName.trim().isEmpty()) {
+            throw new InvalidNameException();
+        }
         this.empName = empName;
     }
 
@@ -23,7 +32,10 @@ public class Payroll {
         return idNum;
     }
 
-    public void setIdNum(int idNum) {
+    public void setIdNum(int idNum) throws InvalidIDException {
+        if (idNum <= 0) {
+            throw new InvalidIDException(idNum);
+        }
         this.idNum = idNum;
     }
 
@@ -31,7 +43,10 @@ public class Payroll {
         return hourlyRate;
     }
 
-    public void setHourlyRate(double hourlyRate) {
+    public void setHourlyRate(double hourlyRate) throws InvalidHourlyRateException {
+        if (hourlyRate < 0 || hourlyRate > 25) {
+            throw new InvalidHourlyRateException(hourlyRate);
+        }
         this.hourlyRate = hourlyRate;
     }
 
@@ -39,7 +54,10 @@ public class Payroll {
         return hoursWorked;
     }
 
-    public void setHoursWorked(double hoursWorked) {
+    public void setHoursWorked(double hoursWorked) throws InvalidHoursWorkedException {
+        if (hoursWorked < 0 || hoursWorked > 84) {
+            throw new InvalidHoursWorkedException(hoursWorked);
+        }
         this.hoursWorked = hoursWorked;
     }
 
