@@ -1,4 +1,4 @@
-package com.Windspinks.PowerBall;
+package com.Windspinks.midterm.part_1.PowerBall;
 
 import java.io.File;
 import java.io.FileNotFoundException;
