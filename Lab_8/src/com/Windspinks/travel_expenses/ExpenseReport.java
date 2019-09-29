@@ -1,4 +1,4 @@
-package com.Windspinks;
+package com.Windspinks.travel_expenses;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -17,15 +17,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
-public class Main extends Application {
-    //numDays
-    //airfare TODO IF
-    //carRental TODO IF
-    //milesDriven TODO IF private vehicles
-    //parking Fees TODO IF
-    //taxi charges  TODO IF
-    //conference/seminar registration fees TODO IF
-    //lodging chargers (per night)
+public class ExpenseReport extends Application {
     @Override
     public void start(Stage primaryStage) {
         GridPane grid = new GridPane();
@@ -41,6 +33,7 @@ public class Main extends Application {
 
         Label daysLabel = new Label("Days");
         Spinner<Integer> daysInput = new Spinner<>(0, Integer.MAX_VALUE, 0);
+        spinnerAddFocusLost(daysInput);
         daysInput.setEditable(true);
         HBox daysBox = new HBox(4, daysLabel, daysInput);
         daysBox.setAlignment(Pos.CENTER_LEFT);
@@ -48,6 +41,7 @@ public class Main extends Application {
 
         Label airFareLabel = new Label("Cost of Airfare");
         Spinner<Double> airfareInput = new Spinner<>(0, Double.MAX_VALUE, 0.0);
+        spinnerAddFocusLost(airfareInput);
         airfareInput.setEditable(true);
         HBox airfareBox = new HBox(4, airFareLabel, airfareInput);
         airfareBox.setAlignment(Pos.CENTER_LEFT);
@@ -55,6 +49,7 @@ public class Main extends Application {
 
         Label carRentalLabel = new Label("Car Rental Fees");
         Spinner<Double> carRentalInput = new Spinner<>(0, Double.MAX_VALUE, 0.0);
+        spinnerAddFocusLost(carRentalInput);
         carRentalInput.setEditable(true);
         HBox carRentalBox = new HBox(4, carRentalLabel, carRentalInput);
         carRentalBox.setAlignment(Pos.CENTER_LEFT);
@@ -62,6 +57,7 @@ public class Main extends Application {
 
         Label milesDrivenLabel = new Label("Miles Driven (If private car)");
         Spinner<Double> milesDrivenInput = new Spinner<>(0, Double.MAX_VALUE, 0.0);
+        spinnerAddFocusLost(milesDrivenInput);
         milesDrivenInput.setEditable(true);
         HBox milesDrivenBox = new HBox(4, milesDrivenLabel, milesDrivenInput);
         milesDrivenBox.setAlignment(Pos.CENTER_LEFT);
@@ -69,6 +65,7 @@ public class Main extends Application {
 
         Label conFeesLabel = new Label("Conference Registration Fees");
         Spinner<Double> conFeesInput = new Spinner<>(0, Double.MAX_VALUE, 0.0);
+        spinnerAddFocusLost(conFeesInput);
         conFeesInput.setEditable(true);
         HBox conFeesBox = new HBox(4, conFeesLabel, conFeesInput);
         conFeesBox.setAlignment(Pos.CENTER_LEFT);
@@ -76,6 +73,7 @@ public class Main extends Application {
 
         Label parkingLabel = new Label("Parking Fees");
         Spinner<Double> parkingInput = new Spinner<>(0, Double.MAX_VALUE, 0.0);
+        spinnerAddFocusLost(parkingInput);
         parkingInput.setEditable(true);
         HBox parkingBox = new HBox(4, parkingLabel, parkingInput);
         parkingBox.setAlignment(Pos.CENTER_LEFT);
@@ -83,6 +81,7 @@ public class Main extends Application {
 
         Label lodgingLabel = new Label("Lodging Charges (per night)");
         Spinner<Double> lodgingInput = new Spinner<>(0, Double.MAX_VALUE, 0.0);
+        spinnerAddFocusLost(lodgingInput);
         lodgingInput.setEditable(true);
         HBox lodgingBox = new HBox(4, lodgingLabel, lodgingInput);
         lodgingBox.setAlignment(Pos.CENTER_LEFT);
@@ -90,6 +89,7 @@ public class Main extends Application {
 
         Label taxiLabel = new Label("Taxi Charges");
         Spinner<Double> taxiInput = new Spinner<>(0, Double.MAX_VALUE, 0.0);
+        spinnerAddFocusLost(taxiInput);
         taxiInput.setEditable(true);
         HBox taxiBox = new HBox(4, taxiLabel, taxiInput);
         taxiBox.setAlignment(Pos.CENTER_LEFT);
@@ -151,14 +151,17 @@ public class Main extends Application {
 
 
         Scene scene = new Scene(grid);
-        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-        primaryStage.setTitle("Hello World");
+        scene.getStylesheets().add(getClass().getResource("../application.css").toExternalForm());
+        primaryStage.setTitle("Expense Report");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-
-    public static void main(String[] args) {
-        launch(args);
+    private void spinnerAddFocusLost(Spinner spinner) {
+        spinner.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                spinner.increment(0); // won't change value, but will commit editor
+            }
+        });
     }
 }
