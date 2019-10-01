@@ -41,7 +41,7 @@ public class ExpenseReport extends Application {
         grid.add(daysBox, 0, 1);
 
         Label airFareLabel = new Label("Cost of Airfare");
-        TextField airfareInput = new TextField("0");
+        TextField airfareInput = new TextField("0.0");
         restrictInputToDoubles(airfareInput);
         setToZeroIfEmpty(airfareInput);
         HBox airfareBox = new HBox(4, airFareLabel, airfareInput);
@@ -49,7 +49,7 @@ public class ExpenseReport extends Application {
         grid.add(airfareBox, 1, 1);
 
         Label carRentalLabel = new Label("Car Rental Fees");
-        TextField carRentalInput = new TextField("0");
+        TextField carRentalInput = new TextField("0.0");
         restrictInputToDoubles(carRentalInput);
         setToZeroIfEmpty(carRentalInput);
         HBox carRentalBox = new HBox(4, carRentalLabel, carRentalInput);
@@ -57,7 +57,7 @@ public class ExpenseReport extends Application {
         grid.add(carRentalBox, 0, 2);
 
         Label milesDrivenLabel = new Label("Miles Driven (If private car)");
-        TextField milesDrivenInput = new TextField("0");
+        TextField milesDrivenInput = new TextField("0.0");
         restrictInputToDoubles(milesDrivenInput);
         setToZeroIfEmpty(milesDrivenInput);
         HBox milesDrivenBox = new HBox(4, milesDrivenLabel, milesDrivenInput);
@@ -65,7 +65,7 @@ public class ExpenseReport extends Application {
         grid.add(milesDrivenBox, 1, 2);
 
         Label conFeesLabel = new Label("Conference Registration Fees");
-        TextField conFeesInput = new TextField("0");
+        TextField conFeesInput = new TextField("0.0");
         restrictInputToDoubles(conFeesInput);
         setToZeroIfEmpty(conFeesInput);
         HBox conFeesBox = new HBox(4, conFeesLabel, conFeesInput);
@@ -73,7 +73,7 @@ public class ExpenseReport extends Application {
         grid.add(conFeesBox, 0, 3);
 
         Label parkingLabel = new Label("Parking Fees");
-        TextField parkingInput = new TextField("0");
+        TextField parkingInput = new TextField("0.0");
         restrictInputToDoubles(parkingInput);
         setToZeroIfEmpty(parkingInput);
         HBox parkingBox = new HBox(4, parkingLabel, parkingInput);
@@ -81,7 +81,7 @@ public class ExpenseReport extends Application {
         grid.add(parkingBox, 1, 3);
 
         Label lodgingLabel = new Label("Lodging Charges (per night)");
-        TextField lodgingInput = new TextField("0");
+        TextField lodgingInput = new TextField("0.0");
         restrictInputToDoubles(lodgingInput);
         setToZeroIfEmpty(lodgingInput);
         HBox lodgingBox = new HBox(4, lodgingLabel, lodgingInput);
@@ -89,7 +89,7 @@ public class ExpenseReport extends Application {
         grid.add(lodgingBox, 0, 4);
 
         Label taxiLabel = new Label("Taxi Charges");
-        TextField taxiInput = new TextField("0");
+        TextField taxiInput = new TextField("0.0");
         restrictInputToDoubles(taxiInput);
         setToZeroIfEmpty(taxiInput);
         HBox taxiBox = new HBox(4, taxiLabel, taxiInput);
