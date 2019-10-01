@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -21,6 +22,7 @@ public class ExpenseReport extends Application {
     @Override
     public void start(Stage primaryStage) {
         GridPane grid = new GridPane();
+        Scene scene = new Scene(grid);
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(20);
         grid.setVgap(20);
@@ -102,7 +104,6 @@ public class ExpenseReport extends Application {
         Text underOrOver = new Text();
         VBox expenseReportBox = new VBox(totalCost, allowedExpenses, underOrOver);
         expenseReportBox.setVisible(false);
-        grid.add(expenseReportBox, 0, 6);
 
 
         Button submitButton = new Button("Submit");
@@ -145,13 +146,14 @@ public class ExpenseReport extends Application {
             }
 
             if (!expenseReportBox.isVisible()) {
+                grid.add(expenseReportBox, 0, 6);
                 expenseReportBox.setVisible(true);
+                primaryStage.sizeToScene();
             }
         });
         grid.add(submitButton, 0, 5, 2, 1);
 
 
-        Scene scene = new Scene(grid);
         scene.getStylesheets().add(getClass().getResource("../application.css").toExternalForm());
         primaryStage.setTitle("Expense Report");
         primaryStage.setScene(scene);
