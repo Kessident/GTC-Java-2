@@ -132,4 +132,8 @@ public class RevenueReport extends Application {
             }
         });
     }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

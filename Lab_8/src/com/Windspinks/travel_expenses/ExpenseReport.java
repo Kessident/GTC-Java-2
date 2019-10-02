@@ -182,4 +182,8 @@ public class ExpenseReport extends Application {
             }
         });
     }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
