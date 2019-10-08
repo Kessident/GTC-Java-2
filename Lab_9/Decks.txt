@@ -1,0 +1,4 @@
+Decks
+Master Thrasher: $60,MasterThrasher
+Dictator: $45,Dictator
+Street King: $50,StreetKing
