@@ -65,7 +65,7 @@ public class Lesson_9_Main extends Application {
         catFingerImageView.setFitWidth(250);
         catFingerImageView.autosize();
 
-        
+
         bigBox.getChildren().addAll(buttonsBox, textArea, catFingerImageView);
         bigBox.setPadding(new Insets(10));
 
