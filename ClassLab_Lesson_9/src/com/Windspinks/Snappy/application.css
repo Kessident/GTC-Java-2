@@ -1,0 +1,9 @@
+GridPane {
+    -fx-padding: 10px;
+}
+.label {
+    -fx-padding: 10px;
+}
+.invalid-input {
+    -fx-background-color: lightpink;
+}
