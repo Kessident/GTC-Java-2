@@ -21,16 +21,3 @@
     -fx-border-radius: 0;
     -fx-background-radius: 0;
 }
-
-.yellow-box{
-    -fx-background-color: yellow;
-}
-.white{
-    -fx-background-color: white;
-}
-.purple{
-    -fx-background-color: purple;
-}
-.black{
-    -fx-background-color: black;
-}

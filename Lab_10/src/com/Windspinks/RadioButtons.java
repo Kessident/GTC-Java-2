@@ -36,7 +36,7 @@ public class RadioButtons extends Application {
         primaryStage.setTitle("Colour Changing Radio Buttons");
         primaryStage.show();
     }
-    
+
     private HBox createABox(String colour) {
         RadioButton colourButton = new RadioButton();
         colourButton.setUserData(colour);
