@@ -48,4 +48,8 @@ public class RadioButtons extends Application {
 
         return returnMeBox;
     }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
