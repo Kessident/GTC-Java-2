@@ -165,8 +165,6 @@ public class FastHappy extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-                showFinalScreen(root, primaryStage);
-
                 boolean valid = true;
                 Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{3}$");
                 Matcher emailMatcher = emailPattern.matcher(tEmail.getText());
