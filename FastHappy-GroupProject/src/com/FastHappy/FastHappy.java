@@ -26,9 +26,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FastHappy extends Application {
-    final int ITEM_ORDER_LIMIT = 50;
-    ArrayList<Item> itemList = new ArrayList<>();
-    ArrayList<Spinner> spinnerList = new ArrayList<>();
+    private final int ITEM_ORDER_LIMIT = 50;
+    private ArrayList<Item> itemList = new ArrayList<>();
+    private ArrayList<Spinner> spinnerList = new ArrayList<>();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -38,12 +38,19 @@ public class FastHappy extends Application {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
-        //Customer Order Information - Bersolgens
         readDatMenu();
         VBox outerMenu = createMenuItems();
 
-        VBox customerInfoBox = createOrdererBox(root, primaryStage);
+        VBox customerInfoBox = createCustomerBox(root, primaryStage);
+
         HBox orderForm = new HBox(outerMenu, customerInfoBox);
+
+        Button addMenuButton = new Button("Add Menu Item");
+        addMenuButton.setOnAction((ActionEvent event) -> addMenuitem(primaryStage));
+        VBox addMenuWrapper = new VBox();
+        addMenuWrapper.getChildren().add(addMenuButton);
+        addMenuWrapper.setAlignment(Pos.CENTER_RIGHT);
+        root.getChildren().add(addMenuWrapper);
         root.getChildren().add(orderForm);
 
         Scene scene = new Scene(scrollPane);
@@ -111,7 +118,7 @@ public class FastHappy extends Application {
     }
 
     //Bersolgens
-    public VBox createOrdererBox(Pane root, Stage primaryStage) {
+    private VBox createCustomerBox(Pane root, Stage primaryStage) {
         Label fName = new Label("First Name:");
         Label lName = new Label("Last Name: ");
         Label address = new Label("Address: ");
@@ -315,6 +322,12 @@ public class FastHappy extends Application {
         primaryStage.sizeToScene();
     }
 
+    private void addMenuitem(Stage primaryStage) {
+        Scene currScene = primaryStage.getScene();
+        System.out.println("welp");
+
+    }
+
 
     private void createDatFile() throws Exception {
         Item entree1 = new Item("Moo Burger", "Made from real cows!", 7.99, "/resources/fasthappyimages/mooburger.jpg", Item.Section.Entree);
@@ -364,10 +377,6 @@ public class FastHappy extends Application {
             System.out.println(ex.getMessage());
             System.exit(-1);
         }
-    }
-
-    private void addMenuitem(Stage primaryStage, Scene oldScene) {
-        primaryStage.setScene(oldScene);
     }
 
 
