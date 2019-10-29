@@ -8,6 +8,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -19,27 +21,33 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FastHappy extends Application {
+    final int ITEM_ORDER_LIMIT = 50;
     ArrayList<Item> itemList = new ArrayList<>();
     ArrayList<Spinner> spinnerList = new ArrayList<>();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         VBox root = new VBox();
-        FlowPane menuFlow = new FlowPane();
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(root);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
         //Customer Order Information - Bersolgens
         readDatMenu();
-        createMenuItems(menuFlow);
+        VBox outerMenu = createMenuItems();
 
         VBox customerInfoBox = createOrdererBox(root, primaryStage);
-        HBox orderForm = new HBox(menuFlow, customerInfoBox);
+        HBox orderForm = new HBox(outerMenu, customerInfoBox);
         root.getChildren().add(orderForm);
 
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(scrollPane);
+        scene.getStylesheets().add(getClass().getResource("FastHappy.css").toExternalForm());
         primaryStage.setTitle("Fast Happy");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -47,12 +55,59 @@ public class FastHappy extends Application {
 
 
     //shmoogy
-    private void createMenuItems(Pane pane) {
+    private VBox createMenuItems() {
+        VBox outerMenu = new VBox();
+        outerMenu.setPrefWidth(1250);
+        FlowPane entreeFlow = new FlowPane();
+        Label entreeMenuLabel = new Label("Entrees");
+        entreeMenuLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        FlowPane sideFlow = new FlowPane();
+        Label sideMenuLabel = new Label("Sides");
+        sideMenuLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        FlowPane dessertFlow = new FlowPane();
+        Label dessertMenuLabel = new Label("Dessert");
+        dessertMenuLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        FlowPane drinkFlow = new FlowPane();
+        Label drinkMenuLabel = new Label("Drinks");
+        drinkMenuLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+
+        outerMenu.getChildren().addAll(entreeMenuLabel, entreeFlow, sideMenuLabel, sideFlow, dessertMenuLabel, dessertFlow, drinkMenuLabel, drinkFlow);
+        ArrayList<FlowPane> flowPaneLists = new ArrayList<>(Arrays.asList(entreeFlow, sideFlow, dessertFlow, drinkFlow));
         for (int i = 0; i < itemList.size(); i++) {
-            Label label = new Label(itemList.get(i).getName());
-            HBox newBox = new HBox(label, spinnerList.get(i));
-            pane.getChildren().add(newBox);
+            Item currItem = itemList.get(i);
+            switch (currItem.getSection()) {
+                case Entree:
+                    createMenuItem(flowPaneLists.get(0), currItem, spinnerList.get(i));
+                    break;
+                case Side:
+                    createMenuItem(flowPaneLists.get(1), currItem, spinnerList.get(i));
+                    break;
+                case Dessert:
+                    createMenuItem(flowPaneLists.get(2), currItem, spinnerList.get(i));
+                    break;
+                case Drink:
+                    createMenuItem(flowPaneLists.get(3), currItem, spinnerList.get(i));
+                    break;
+            }
         }
+
+        return outerMenu;
+    }
+
+    //shmoogy
+    private void createMenuItem(FlowPane menuFlow, Item item, Spinner spinner) {
+        ImageView menuImageView = new ImageView(new Image(item.getImageFileURL()));
+        menuImageView.setFitHeight(100);
+        menuImageView.setFitWidth(100);
+        Label nameLabel = new Label(item.getName() + " - $" + item.getPrice());
+        nameLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
+        Label itemDesc = new Label(item.getDescription());
+
+        VBox itemBox = new VBox(menuImageView, nameLabel, itemDesc, spinner);
+        itemBox.setAlignment(Pos.CENTER);
+        itemBox.getStyleClass().add("menuItem");
+
+        menuFlow.getChildren().add(itemBox);
     }
 
     //Bersolgens
@@ -133,7 +188,7 @@ public class FastHappy extends Application {
                     tZip.setStyle("-fx-prompt-text-fill: #ff0000;"); //Set red text color
                     valid = false;
                 }
-//Phone Number has to be digits, and length = 10
+
                 if (tPhone.getText().length() != 10) {
                     tPhone.clear();
                     tPhone.setPromptText("Has to be 10 Digits");
@@ -152,7 +207,7 @@ public class FastHappy extends Application {
                     showFinalScreen(root, primaryStage);
                     //Can only place one order
                     //Remove eventHandler after placing order
-                    ((Button)event.getSource()).setOnAction(null);
+                    ((Button) event.getSource()).setOnAction(null);
                 }
             }
         });
@@ -209,7 +264,7 @@ public class FastHappy extends Application {
 
         //Order Total
         VBox orderTotalBox = new VBox();
-        orderTotalBox.setPadding(new Insets(10, 10, 10 , 50));
+        orderTotalBox.setPadding(new Insets(10, 10, 10, 50));
         orderTotalBox.setStyle("-fx-border-width: 1px");
         orderTotalBox.setStyle("-fx-border-color: black");
         orderTotalBox.setAlignment(Pos.CENTER_RIGHT);
@@ -268,7 +323,7 @@ public class FastHappy extends Application {
         Item entree4 = new Item("It was you Alfredo", "Alfredo so good it'll break your heart!", 8.99, "/resources/fasthappyimages/itwasyoualfredo.jpg", Item.Section.Entree);
         Item entree5 = new Item("J. Paul Spaghetti", "Perfect for the grand kids!", 17, "/resources/fasthappyimages/jpaulspaghetti.jpg", Item.Section.Entree);
         Item side1 = new Item("Six, Fries, and Videotape", "Perfect for getting over a breakup!", 1.99, "/resources/fasthappyimages/sixfriesvideotape.jpg", Item.Section.Side);
-        Item side2 = new Item("Make a Wedge", "PLACEHOLDER!", 1.99, "/resources/fasthappyimages/makeawedge.jpg", Item.Section.Side);
+        Item side2 = new Item("Make a Wedge", "Guaranteed to not get between you and your significant other!", 1.99, "/resources/fasthappyimages/makeawedge.jpg", Item.Section.Side);
         Item dessert1 = new Item("Go to Townie Brownie", "A dessert oh so sweet!", 5.99, "/resources/fasthappyimages/gototowniebrownie.jpg", Item.Section.Dessert);
         Item dessert2 = new Item("Shake Shake Shake", "Shake, shake, shake it off!", 4.99, "/resources/fasthappyimages/shakes.jpg", Item.Section.Dessert);
         Item drink1 = new Item("Coke, Sprite", "Original recipe!", 2.49, "/resources/fasthappyimages/coke.jpg", Item.Section.Drink);
@@ -291,6 +346,7 @@ public class FastHappy extends Application {
     }
 
     private void readDatMenu() {
+
         int menuItemsToRead;
         FileInputStream fis;
         ObjectInputStream ois;
@@ -302,7 +358,7 @@ public class FastHappy extends Application {
             for (int i = 0; i < menuItemsToRead; i++) {
                 Item newItem = (Item) ois.readObject();
                 itemList.add(newItem);
-                spinnerList.add(new Spinner(0, 50, 0));
+                spinnerList.add(new Spinner(0, ITEM_ORDER_LIMIT, 0));
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
