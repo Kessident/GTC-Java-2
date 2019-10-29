@@ -27,6 +27,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FastHappy extends Application {
+    private final String ADMIN_PASSWORD = "admin password"
     private final int ITEM_ORDER_LIMIT = 50;
     private ArrayList<Item> itemList = new ArrayList<>();
     private ArrayList<Spinner> spinnerList = new ArrayList<>();
@@ -341,7 +342,7 @@ public class FastHappy extends Application {
         newMenuItemBox.setVisible(false);
 
         submitButton.setOnAction((ActionEvent event) -> {
-            if (passInput.getText().equals("1111")) {
+            if (passInput.getText().equals(ADMIN_PASSWORD)) {
                 passBox.setVisible(false);
                 newMenuItemBox.setVisible(true);
             }
