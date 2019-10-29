@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -14,14 +15,14 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,6 +33,7 @@ public class FastHappy extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        createDatFile();
         VBox root = new VBox();
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(root);
@@ -323,39 +325,199 @@ public class FastHappy extends Application {
     }
 
     private void addMenuitem(Stage primaryStage) {
-        Scene currScene = primaryStage.getScene();
-        System.out.println("welp");
+        Scene scene = primaryStage.getScene();
+        Parent menuRoot = scene.getRoot();
 
+        VBox newBox = new VBox();
+        newBox.setAlignment(Pos.CENTER);
+        Label passLabel = new Label("Password");
+        PasswordField passInput = new PasswordField();
+        Button submitButton = new Button("Submit");
+        HBox passBox = new HBox(passLabel, passInput, submitButton);
+        passBox.setAlignment(Pos.CENTER);
+
+        VBox newMenuItemBox = createNewMenuItemBox(primaryStage);
+        newMenuItemBox.setAlignment(Pos.CENTER);
+        newMenuItemBox.setVisible(false);
+
+        submitButton.setOnAction((ActionEvent event) -> {
+            if (passInput.getText().equals("1111")) {
+                passBox.setVisible(false);
+                newMenuItemBox.setVisible(true);
+            }
+        });
+
+        Button backButton = new Button("Back");
+        backButton.setOnAction((ActionEvent event) -> scene.setRoot(menuRoot));
+        passBox.getChildren().add(backButton);
+
+        newBox.getChildren().add(passBox);
+        newBox.getChildren().add(newMenuItemBox);
+
+        scene.setRoot(newBox);
+    }
+
+    private VBox createNewMenuItemBox(Stage primaryStage) {
+        VBox toReturn = new VBox();
+        //Name
+        Label nameLabel = new Label("New item name: ");
+        nameLabel.setFont(Font.font("Verdana", 16));
+        TextField nameInput = new TextField();
+        HBox namebox = new HBox(nameLabel, nameInput);
+        namebox.setAlignment(Pos.CENTER);
+        //Description
+        Label descLabel = new Label("New item Description: ");
+        descLabel.setFont(Font.font("Verdana", 16));
+        TextField descInput = new TextField();
+        HBox descbox = new HBox(descLabel, descInput);
+        descbox.setAlignment(Pos.CENTER);
+        //Picture
+        Label picLabel = new Label("New item Picture: ");
+        picLabel.setFont(Font.font("Verdana", 16));
+        FileChooser pictureChooser = new FileChooser();
+        Button picInput = new Button("Picture");
+        Text pictureSelectedAbs = new Text();
+        Text pictureSelectedFileName = new Text();
+        pictureSelectedAbs.setVisible(false);
+        picInput.setOnAction((ActionEvent event) -> {
+            File pictureFile = pictureChooser.showOpenDialog(primaryStage);
+            if (pictureFile != null) {
+                pictureSelectedAbs.setText(pictureFile.getAbsolutePath());
+                pictureSelectedFileName.setText(pictureFile.getName());
+            }
+        });
+        HBox picBox = new HBox(picLabel, picInput);
+        picBox.setAlignment(Pos.CENTER);
+        //Section
+        Label sectLabel = new Label("New item section: ");
+        sectLabel.setFont(Font.font("Verdana", 16));
+        List<Item.Section> sectionList = Arrays.asList(Item.Section.values());
+        ComboBox<Item.Section> sectInput = new ComboBox<>(FXCollections.observableList(sectionList));
+        HBox sectBox = new HBox(sectLabel, sectInput);
+        sectBox.setAlignment(Pos.CENTER);
+        //Price
+        Label priceLabel = new Label("New item price: $");
+        priceLabel.setFont(Font.font("Verdana", 16));
+        TextField priceInput = new TextField();
+        HBox priceBox = new HBox(priceLabel, priceInput);
+        priceBox.setAlignment(Pos.CENTER);
+
+        Button submitButton = new Button("Submit");
+
+        submitButton.setOnAction((ActionEvent event) -> {
+            boolean validItem = true;
+
+            if (nameInput.getText().isEmpty()) {
+                nameInput.setStyle("-fx-background-color: #FF474C");
+                validItem = false;
+            } else {
+                nameInput.setStyle("-fx-background-color: white");
+            }
+            if (descInput.getText().isEmpty()) {
+                descInput.setStyle("-fx-background-color: #FF474C");
+                validItem = false;
+            } else {
+                descInput.setStyle("-fx-background-color: white");
+            }
+            if (priceInput.getText().isEmpty()) {
+                priceInput.setStyle("-fx-background-color: #FF474C");
+                validItem = false;
+            } else {
+                priceInput.setStyle("-fx-background-color: white");
+            }
+            if (sectInput.getValue() == null) {
+                sectInput.setStyle("-fx-background-color: #FF474C");
+                validItem = false;
+            } else {
+                sectInput.setStyle("-fx-background-color: white");
+            }
+            if (pictureSelectedAbs.getText().isEmpty()) {
+                picInput.setStyle("-fx-background-color: #FF474C");
+                validItem = false;
+            } else {
+                picInput.setStyle("-fx-background-color: white");
+            }
+
+
+            if (validItem) {
+                String itemName = nameInput.getText();
+                String itemDescription = descInput.getText();
+                double itemPrice = Double.parseDouble(priceInput.getText());
+                String itemFileLoc = "/resources/fasthappyimages/" + pictureSelectedFileName.getText();
+                Item.Section itemSection = sectInput.getValue();
+
+                //Copy picture Over
+                try {
+                    Files.copy(new File(pictureSelectedAbs.getText()).toPath(), new File(System.getProperty("user.dir") + "/src" + itemFileLoc).toPath());
+                } catch (IOException ex) {
+                    Text ioException = new Text("IOException, please reload application\nSee console for details\n" + ex.getMessage());
+                    ex.printStackTrace();
+                    toReturn.getChildren().add(ioException);
+                    return;
+                }
+
+                Item newMenuItem = new Item(itemName, itemDescription, itemPrice, itemFileLoc, itemSection);
+                itemList.add(newMenuItem);
+
+                //Write all Items to menu.dat
+                try {
+                    ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/resources/menu.dat"));
+                    oos.writeInt(itemList.size());
+                    for (Item item : itemList) {
+                        oos.writeObject(item);
+                    }
+                    oos.close();
+                } catch (IOException ex) {
+                    Text ioException = new Text("IOException, please reload application\nSee console for details");
+                    ex.printStackTrace();
+                    toReturn.getChildren().add(ioException);
+                    return;
+                }
+
+                Text success = new Text("Item added successfully");
+                success.setFont(Font.font("Verdana", 26));
+                toReturn.getChildren().add(success);
+                //prevent accidental additional presses
+                submitButton.setOnAction(null);
+            }
+        });
+        toReturn.getChildren().addAll(namebox, descbox, picBox, sectBox, priceBox, submitButton);
+        return toReturn;
     }
 
 
     private void createDatFile() throws Exception {
-        Item entree1 = new Item("Moo Burger", "Made from real cows!", 7.99, "/resources/fasthappyimages/mooburger.jpg", Item.Section.Entree);
-        Item entree2 = new Item("Let's Play Chicken Sandwich", "Be sure to live stream your lunch!", 6.99, "/resources/fasthappyimages/letsplaychicken.jpg", Item.Section.Entree);
-        Item entree3 = new Item("Struck Gold Chicken Nuggets", "1 in 10000 contains a real gold nugget!", 4.99, "/resources/fasthappyimages/struckgoldnuggest.jpg", Item.Section.Entree);
-        Item entree4 = new Item("It was you Alfredo", "Alfredo so good it'll break your heart!", 8.99, "/resources/fasthappyimages/itwasyoualfredo.jpg", Item.Section.Entree);
-        Item entree5 = new Item("J. Paul Spaghetti", "Perfect for the grand kids!", 17, "/resources/fasthappyimages/jpaulspaghetti.jpg", Item.Section.Entree);
-        Item side1 = new Item("Six, Fries, and Videotape", "Perfect for getting over a breakup!", 1.99, "/resources/fasthappyimages/sixfriesvideotape.jpg", Item.Section.Side);
-        Item side2 = new Item("Make a Wedge", "Guaranteed to not get between you and your significant other!", 1.99, "/resources/fasthappyimages/makeawedge.jpg", Item.Section.Side);
-        Item dessert1 = new Item("Go to Townie Brownie", "A dessert oh so sweet!", 5.99, "/resources/fasthappyimages/gototowniebrownie.jpg", Item.Section.Dessert);
-        Item dessert2 = new Item("Shake Shake Shake", "Shake, shake, shake it off!", 4.99, "/resources/fasthappyimages/shakes.jpg", Item.Section.Dessert);
-        Item drink1 = new Item("Coke, Sprite", "Original recipe!", 2.49, "/resources/fasthappyimages/coke.jpg", Item.Section.Drink);
-        Item drink2 = new Item("Iced Tea", "A favourite of Tracy Marrow!", 2.99, "/resources/fasthappyimages/icetea.jpg", Item.Section.Drink);
+        File datFile = new File("src/resources/menu.dat");
+        //Initial Menu Offerings
+        if (!datFile.exists()) {
+            Item entree1 = new Item("Moo Burger", "Made from real cows!", 7.99, "/resources/fasthappyimages/mooburger.jpg", Item.Section.Entree);
+            Item entree2 = new Item("Let's Play Chicken Sandwich", "Be sure to live stream your lunch!", 6.99, "/resources/fasthappyimages/letsplaychicken.jpg", Item.Section.Entree);
+            Item entree3 = new Item("Struck Gold Chicken Nuggets", "1 in 10000 contains a real gold nugget!", 4.99, "/resources/fasthappyimages/struckgoldnuggest.jpg", Item.Section.Entree);
+            Item entree4 = new Item("It was you Alfredo", "Alfredo so good it'll break your heart!", 8.99, "/resources/fasthappyimages/itwasyoualfredo.jpg", Item.Section.Entree);
+            Item entree5 = new Item("J. Paul Spaghetti", "Perfect for the grand kids!", 17, "/resources/fasthappyimages/jpaulspaghetti.jpg", Item.Section.Entree);
+            Item side1 = new Item("Six, Fries, and Videotape", "Perfect for getting over a breakup!", 1.99, "/resources/fasthappyimages/sixfriesvideotape.jpg", Item.Section.Side);
+            Item side2 = new Item("Make a Wedge", "Guaranteed to not get between you and your significant other!", 1.99, "/resources/fasthappyimages/makeawedge.jpg", Item.Section.Side);
+            Item dessert1 = new Item("Go to Townie Brownie", "A dessert oh so sweet!", 5.99, "/resources/fasthappyimages/gototowniebrownie.jpg", Item.Section.Dessert);
+            Item dessert2 = new Item("Shake Shake Shake", "Shake, shake, shake it off!", 4.99, "/resources/fasthappyimages/shakes.jpg", Item.Section.Dessert);
+            Item drink1 = new Item("Coke, Sprite", "Original recipe!", 2.49, "/resources/fasthappyimages/coke.jpg", Item.Section.Drink);
+            Item drink2 = new Item("Iced Tea", "A favourite of Tracy Marrow!", 2.99, "/resources/fasthappyimages/icetea.jpg", Item.Section.Drink);
 
 
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/resources/menu.dat"));
-        oos.writeInt(11);
-        oos.writeObject(entree1);
-        oos.writeObject(entree2);
-        oos.writeObject(entree3);
-        oos.writeObject(entree4);
-        oos.writeObject(entree5);
-        oos.writeObject(side1);
-        oos.writeObject(side2);
-        oos.writeObject(dessert1);
-        oos.writeObject(dessert2);
-        oos.writeObject(drink1);
-        oos.writeObject(drink2);
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(datFile));
+            oos.writeInt(11);
+            oos.writeObject(entree1);
+            oos.writeObject(entree2);
+            oos.writeObject(entree3);
+            oos.writeObject(entree4);
+            oos.writeObject(entree5);
+            oos.writeObject(side1);
+            oos.writeObject(side2);
+            oos.writeObject(dessert1);
+            oos.writeObject(dessert2);
+            oos.writeObject(drink1);
+            oos.writeObject(drink2);
+            oos.close();
+        }
     }
 
     private void readDatMenu() {
