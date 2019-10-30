@@ -26,15 +26,22 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//Bryan Simpson
+//Charles Dodge
+//
+//Ryan Velez
+
+
 public class FastHappy extends Application {
     private final String ADMIN_PASSWORD = "admin password";
     private final int ITEM_ORDER_LIMIT = 50;
     private ArrayList<Item> itemList = new ArrayList<>();
     private ArrayList<Spinner> spinnerList = new ArrayList<>();
+    private File menuFile = new File("src/resources/menu.dat");
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        createDatFile();
+        createInitialMenu();
         VBox root = new VBox();
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(root);
@@ -64,7 +71,7 @@ public class FastHappy extends Application {
     }
 
 
-    //shmoogy
+    //Bryan
     private VBox createMenuItems() {
         VBox outerMenu = new VBox();
         outerMenu.setPrefWidth(1250);
@@ -104,7 +111,7 @@ public class FastHappy extends Application {
         return outerMenu;
     }
 
-    //shmoogy
+    //Bryan
     private void createMenuItem(FlowPane menuFlow, Item item, Spinner spinner) {
         ImageView menuImageView = new ImageView(new Image(item.getImageFileURL()));
         menuImageView.setFitHeight(100);
@@ -120,7 +127,7 @@ public class FastHappy extends Application {
         menuFlow.getChildren().add(itemBox);
     }
 
-    //Bersolgens
+    //Ryan
     private VBox createCustomerBox(Pane root, Stage primaryStage) {
         Label fName = new Label("First Name:");
         Label lName = new Label("Last Name: ");
@@ -323,6 +330,7 @@ public class FastHappy extends Application {
         primaryStage.sizeToScene();
     }
 
+    //Charles
     private void addMenuitem(Stage primaryStage) {
         Scene scene = primaryStage.getScene();
         Parent menuRoot = scene.getRoot();
@@ -356,6 +364,7 @@ public class FastHappy extends Application {
         scene.setRoot(newBox);
     }
 
+    //Charles
     private VBox createNewMenuItemBox(Stage primaryStage) {
         VBox toReturn = new VBox();
         //Name
@@ -484,11 +493,10 @@ public class FastHappy extends Application {
         return toReturn;
     }
 
-
-    private void createDatFile() throws Exception {
-        File datFile = new File("src/resources/menu.dat");
+    //Charles
+    private void createInitialMenu() throws Exception {
         //Initial Menu Offerings
-        if (!datFile.exists()) {
+        if (!menuFile.exists()) {
             Item entree1 = new Item("Moo Burger", "Made from real cows!", 7.99, "/resources/fasthappyimages/mooburger.jpg", Item.Section.Entree);
             Item entree2 = new Item("Let's Play Chicken Sandwich", "Be sure to live stream your lunch!", 6.99, "/resources/fasthappyimages/letsplaychicken.jpg", Item.Section.Entree);
             Item entree3 = new Item("Struck Gold Chicken Nuggets", "1 in 10000 contains a real gold nugget!", 4.99, "/resources/fasthappyimages/struckgoldnuggest.jpg", Item.Section.Entree);
@@ -502,7 +510,7 @@ public class FastHappy extends Application {
             Item drink2 = new Item("Iced Tea", "A favourite of Tracy Marrow!", 2.99, "/resources/fasthappyimages/icetea.jpg", Item.Section.Drink);
 
 
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(datFile));
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(menuFile));
             oos.writeInt(11);
             oos.writeObject(entree1);
             oos.writeObject(entree2);
@@ -519,13 +527,14 @@ public class FastHappy extends Application {
         }
     }
 
+    //Charles
     private void readDatMenu() {
 
         int menuItemsToRead;
         FileInputStream fis;
         ObjectInputStream ois;
         try {
-            fis = new FileInputStream("src/resources/menu.dat");
+            fis = new FileInputStream(menuFile);
             ois = new ObjectInputStream(fis);
             menuItemsToRead = ois.readInt();
 
