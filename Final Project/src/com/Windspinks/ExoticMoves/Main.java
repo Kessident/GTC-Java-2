@@ -52,7 +52,7 @@ public class Main extends Application {
             Car blueFerrariConv = new Aston("Blue", true, 0, new File("/resources/images/BluFerrariConvertible.jpg"));
             Car blueLamboConv = new Aston("Blue", true, 0, new File("/resources/images/BluLamboConvertible.jpg"));
             Car blueMaserati = new Aston("Blue", false, 0, new File("/resources/images/BluMaserati.jpg"));
-            Car blueMcLaren = new Aston("Blue", false, 0, new File("/resources/images/BluMcLarenjpg"));
+            Car blueMcLaren = new Aston("Blue", false, 0, new File("/resources/images/BluMcLaren.jpg"));
             Car greenAston = new Aston("Green", false, 0, new File("/resources/images/GreenAston.jpg"));
             Car greenLambo = new Aston("Green", false, 0, new File("/resources/images/GreenLambo.jpg"));
             Car greenMcLaren = new Aston("Green", false, 0, new File("/resources/images/GreenMcLaren.jpg"));
@@ -67,7 +67,7 @@ public class Main extends Application {
             Car whiteMaseratiConv = new Aston("White", true, 0, new File("/resources/images/WhiteMaserConvertible.jpg"));
             Car yellowFerrari = new Aston("Yellow", false, 0, new File("/resources/images/YellowFerrari.jpg"));
             Car yellowLambo = new Aston("Yellow", false, 0, new File("/resources/images/YellowLambo.jpg"));
-            Car yellowMcLaren = new Aston("Yellow", false, 0, new File("/resources/images/YellowMcLaren.jpg"));
+            Car yellowMcLaren = new Aston("Yellow", false, 0, new File("/resources/images/YellowMgcLaren.jpg"));
         }
     }
 }
