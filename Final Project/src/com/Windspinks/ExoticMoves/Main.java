@@ -18,6 +18,10 @@ import java.io.File;
 public class Main extends Application {
     private final File INVENTORY_FILE_LOCATION = new File("src/resources/inventory.dat");
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage primaryStage) {
         VBox outerBox = new VBox();
@@ -40,9 +44,5 @@ public class Main extends Application {
         if (!INVENTORY_FILE_LOCATION.exists()) {
             Car BlackAstConv = new Aston("Black", true, 0);
         }
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

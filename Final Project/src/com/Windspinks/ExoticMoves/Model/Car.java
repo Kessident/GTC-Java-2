@@ -5,7 +5,7 @@ import java.io.Serializable;
 public abstract class Car implements Serializable {
     private Brand brand;
     private double price;
-    private String color;
+    private Color color;
     private boolean isConvertible;
     private int numCylinders;
     private double zeroToSixty;
@@ -13,13 +13,17 @@ public abstract class Car implements Serializable {
     public Car() {
     }
 
-    public Car(Brand brand, double price, String color, boolean isConvertible, int numCylinders, double zeroToSixty) {
+    public Car(Brand brand, double price, Color color, boolean isConvertible, int numCylinders, double zeroToSixty) {
         this.brand = brand;
         this.price = price;
         this.color = color;
         this.isConvertible = isConvertible;
         this.numCylinders = numCylinders;
         this.zeroToSixty = zeroToSixty;
+    }
+
+    public Car(Brand brand, double price, String color, boolean isConvertible, int numCylinders, double zeroToSixty) {
+        this(brand, price, Color.valueOf(color), isConvertible, numCylinders, zeroToSixty);
     }
 
     public Brand getBrand() {
@@ -34,11 +38,11 @@ public abstract class Car implements Serializable {
         this.price = price;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
@@ -67,4 +71,6 @@ public abstract class Car implements Serializable {
     }
 
     protected enum Brand {AstonMartin, Ferrari, Lamborghini, McLaren, Maserati}
+
+    protected enum Color {Black, Blue, Green, Orange, Red, White, Yellow}
 }
