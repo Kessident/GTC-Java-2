@@ -67,7 +67,7 @@ public class Main extends Application {
             Car whiteMaseratiConv = new Aston("White", true, 0, new File("/resources/images/WhiteMaserConvertible.jpg"));
             Car yellowFerrari = new Aston("Yellow", false, 0, new File("/resources/images/YellowFerrari.jpg"));
             Car yellowLambo = new Aston("Yellow", false, 0, new File("/resources/images/YellowLambo.jpg"));
-            Car yellowMcLaren = new Aston("Yellow", false, 0, new File("/resources/images/YellowMgcLaren.jpg"));
+            Car yellowMcLaren = new Aston("Yellow", false, 0, new File("/resources/images/YellowMcLaren.jpg"));
         }
     }
 }
