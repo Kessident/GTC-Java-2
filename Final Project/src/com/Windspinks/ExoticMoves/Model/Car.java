@@ -1,5 +1,6 @@
 package com.Windspinks.ExoticMoves.Model;
 
+import java.io.File;
 import java.io.Serializable;
 
 public abstract class Car implements Serializable {
@@ -9,21 +10,23 @@ public abstract class Car implements Serializable {
     private boolean isConvertible;
     private int numCylinders;
     private double zeroToSixty;
+    private File imageFile;
 
     public Car() {
     }
 
-    public Car(Brand brand, double price, Color color, boolean isConvertible, int numCylinders, double zeroToSixty) {
+    public Car(Brand brand, double price, Color color, boolean isConvertible, int numCylinders, double zeroToSixty, File imageFile) {
         this.brand = brand;
         this.price = price;
         this.color = color;
         this.isConvertible = isConvertible;
         this.numCylinders = numCylinders;
         this.zeroToSixty = zeroToSixty;
+        this.imageFile = imageFile;
     }
 
-    public Car(Brand brand, double price, String color, boolean isConvertible, int numCylinders, double zeroToSixty) {
-        this(brand, price, Color.valueOf(color), isConvertible, numCylinders, zeroToSixty);
+    public Car(Brand brand, double price, String color, boolean isConvertible, int numCylinders, double zeroToSixty, File imageFile) {
+        this(brand, price, Color.valueOf(color), isConvertible, numCylinders, zeroToSixty, imageFile);
     }
 
     public Brand getBrand() {
@@ -68,6 +71,14 @@ public abstract class Car implements Serializable {
 
     public void setZeroToSixty(double zeroToSixty) {
         this.zeroToSixty = zeroToSixty;
+    }
+
+    public File getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(File imageFile) {
+        this.imageFile = imageFile;
     }
 
     protected enum Brand {AstonMartin, Ferrari, Lamborghini, McLaren, Maserati}

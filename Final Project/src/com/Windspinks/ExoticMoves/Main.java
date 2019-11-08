@@ -42,32 +42,32 @@ public class Main extends Application {
 
     private void createInitialInventory() {
         if (!INVENTORY_FILE_LOCATION.exists()) {
-            Car blackAstConv = new Aston("Black", true, 0);
-            Car blackFerrariConv = new Aston("Black", true, 0);
-            Car blackLambo = new Aston("Black", false, 0);
-            Car blackLamboConv = new Aston("Black", true, 0);
-            Car blackMaserati = new Aston("Black", false, 0);
-            Car blackMcLaren = new Aston("Black", false, 0);
-            Car blueAston = new Aston("Blue", false, 0);
-            Car blueFerrariConv = new Aston("Blue", true, 0);
-            Car blueLamboConv = new Aston("Blue", true, 0);
-            Car blueMaserati = new Aston("Blue", false, 0);
-            Car blueMcLaren = new Aston("Blue", false, 0);
-            Car greenAston = new Aston("Green", false, 0);
-            Car greenLambo = new Aston("Green", false, 0);
-            Car greenMcLaren = new Aston("Green", false, 0);
-            Car orangeMcLarenConv = new Aston("Orange", true, 0);
-            Car redAstonConv = new Aston("Red1", true, 0);
-            Car redFerrari = new Aston("Red", false, 0);
-            Car redMaserati = new Aston("Red", false, 0);
-            Car redMcLaren = new Aston("Red", false, 0);
-            Car whiteFerrari = new Aston("White", false, 0);
-            Car whiteFerrariConv = new Aston("White", true, 0);
-            Car whiteLambo = new Aston("White", false, 0);
-            Car whiteMaseratiConv = new Aston("White", true, 0);
-            Car yellowFerrari = new Aston("Yellow", false, 0);
-            Car yellowLambo = new Aston("Yellow", false, 0);
-            Car yellowMcLaren = new Aston("Yellow", false, 0);
+            Car blackAstConv = new Aston("Black", true, 0, new File("/resources/images/BlkAstonConvertible.jpg"));
+            Car blackFerrariConv = new Aston("Black", true, 0, new File("/resources/images/BlkFerrariConvertible.jpg"));
+            Car blackLambo = new Aston("Black", false, 0, new File("/resources/images/BlkLambo.jpg"));
+            Car blackLamboConv = new Aston("Black", true, 0, new File("/resources/images/BlkLamboConvertible.jpg"));
+            Car blackMaserati = new Aston("Black", false, 0, new File("/resources/images/BlkMaserati.jpg"));
+            Car blackMcLaren = new Aston("Black", false, 0, new File("/resources/images/BlkMcLaren.jpg"));
+            Car blueAston = new Aston("Blue", false, 0, new File("/resources/images/BluAston.jpg"));
+            Car blueFerrariConv = new Aston("Blue", true, 0, new File("/resources/images/BluFerrariConvertible.jpg"));
+            Car blueLamboConv = new Aston("Blue", true, 0, new File("/resources/images/BluLamboConvertible.jpg"));
+            Car blueMaserati = new Aston("Blue", false, 0, new File("/resources/images/BluMaserati.jpg"));
+            Car blueMcLaren = new Aston("Blue", false, 0, new File("/resources/images/BluMcLarenjpg"));
+            Car greenAston = new Aston("Green", false, 0, new File("/resources/images/GreenAston.jpg"));
+            Car greenLambo = new Aston("Green", false, 0, new File("/resources/images/GreenLambo.jpg"));
+            Car greenMcLaren = new Aston("Green", false, 0, new File("/resources/images/GreenMcLaren.jpg"));
+            Car orangeMcLarenConv = new Aston("Orange", true, 0, new File("/resources/images/OranMcLarConvertible.jpg"));
+            Car redAstonConv = new Aston("Red1", true, 0, new File("/resources/images/RedAstonConvertible.jpg"));
+            Car redFerrari = new Aston("Red", false, 0, new File("/resources/images/RedFerrari.jpg"));
+            Car redMaserati = new Aston("Red", false, 0, new File("/resources/images/RedMaserati.jpg"));
+            Car redMcLaren = new Aston("Red", false, 0, new File("/resources/images/RedMcLaren.jpg"));
+            Car whiteFerrari = new Aston("White", false, 0, new File("/resources/images/WhiteFerrari.jpg"));
+            Car whiteFerrariConv = new Aston("White", true, 0, new File("/resources/images/WhiteFerrConvertible.jpg"));
+            Car whiteLambo = new Aston("White", false, 0, new File("/resources/images/WhiteLambo.jpg"));
+            Car whiteMaseratiConv = new Aston("White", true, 0, new File("/resources/images/WhiteMaserConvertible.jpg"));
+            Car yellowFerrari = new Aston("Yellow", false, 0, new File("/resources/images/YellowFerrari.jpg"));
+            Car yellowLambo = new Aston("Yellow", false, 0, new File("/resources/images/YellowLambo.jpg"));
+            Car yellowMcLaren = new Aston("Yellow", false, 0, new File("/resources/images/YellowMcLaren.jpg"));
         }
     }
 }
