@@ -42,7 +42,32 @@ public class Main extends Application {
 
     private void createInitialInventory() {
         if (!INVENTORY_FILE_LOCATION.exists()) {
-            Car BlackAstConv = new Aston("Black", true, 0);
+            Car blackAstConv = new Aston("Black", true, 0);
+            Car blackFerrariConv = new Aston("Black", true, 0);
+            Car blackLambo = new Aston("Black", false, 0);
+            Car blackLamboConv = new Aston("Black", true, 0);
+            Car blackMaserati = new Aston("Black", false, 0);
+            Car blackMcLaren = new Aston("Black", false, 0);
+            Car blueAston = new Aston("Blue", false, 0);
+            Car blueFerrariConv = new Aston("Blue", true, 0);
+            Car blueLamboConv = new Aston("Blue", true, 0);
+            Car blueMaserati = new Aston("Blue", false, 0);
+            Car blueMcLaren = new Aston("Blue", false, 0);
+            Car greenAston = new Aston("Green", false, 0);
+            Car greenLambo = new Aston("Green", false, 0);
+            Car greenMcLaren = new Aston("Green", false, 0);
+            Car orangeMcLarenConv = new Aston("Orange", true, 0);
+            Car redAstonConv = new Aston("Red1", true, 0);
+            Car redFerrari = new Aston("Red", false, 0);
+            Car redMaserati = new Aston("Red", false, 0);
+            Car redMcLaren = new Aston("Red", false, 0);
+            Car whiteFerrari = new Aston("White", false, 0);
+            Car whiteFerrariConv = new Aston("White", true, 0);
+            Car whiteLambo = new Aston("White", false, 0);
+            Car whiteMaseratiConv = new Aston("White", true, 0);
+            Car yellowFerrari = new Aston("Yellow", false, 0);
+            Car yellowLambo = new Aston("Yellow", false, 0);
+            Car yellowMcLaren = new Aston("Yellow", false, 0);
         }
     }
 }
