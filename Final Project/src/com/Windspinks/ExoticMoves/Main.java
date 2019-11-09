@@ -14,6 +14,9 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class Main extends Application {
     private final File INVENTORY_FILE_LOCATION = new File("src/resources/inventory.dat");
@@ -57,7 +60,7 @@ public class Main extends Application {
             Car greenLambo = new Aston("Green", false, 0, new File("/resources/images/GreenLambo.jpg"));
             Car greenMcLaren = new Aston("Green", false, 0, new File("/resources/images/GreenMcLaren.jpg"));
             Car orangeMcLarenConv = new Aston("Orange", true, 0, new File("/resources/images/OranMcLarConvertible.jpg"));
-            Car redAstonConv = new Aston("Red1", true, 0, new File("/resources/images/RedAstonConvertible.jpg"));
+            Car redAstonConv = new Aston("Red", true, 0, new File("/resources/images/RedAstonConvertible.jpg"));
             Car redFerrari = new Aston("Red", false, 0, new File("/resources/images/RedFerrari.jpg"));
             Car redMaserati = new Aston("Red", false, 0, new File("/resources/images/RedMaserati.jpg"));
             Car redMcLaren = new Aston("Red", false, 0, new File("/resources/images/RedMcLaren.jpg"));
@@ -68,6 +71,40 @@ public class Main extends Application {
             Car yellowFerrari = new Aston("Yellow", false, 0, new File("/resources/images/YellowFerrari.jpg"));
             Car yellowLambo = new Aston("Yellow", false, 0, new File("/resources/images/YellowLambo.jpg"));
             Car yellowMcLaren = new Aston("Yellow", false, 0, new File("/resources/images/YellowMcLaren.jpg"));
+
+            try {
+                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(INVENTORY_FILE_LOCATION));
+                oos.writeInt(26);
+                oos.writeObject(blackAstConv);
+                oos.writeObject(blackFerrariConv);
+                oos.writeObject(blackLambo);
+                oos.writeObject(blackLamboConv);
+                oos.writeObject(blackMaserati);
+                oos.writeObject(blackMcLaren);
+                oos.writeObject(blueAston);
+                oos.writeObject(blueFerrariConv);
+                oos.writeObject(blueLamboConv);
+                oos.writeObject(blueMaserati);
+                oos.writeObject(blueMcLaren);
+                oos.writeObject(greenAston);
+                oos.writeObject(greenLambo);
+                oos.writeObject(greenMcLaren);
+                oos.writeObject(orangeMcLarenConv);
+                oos.writeObject(redAstonConv);
+                oos.writeObject(redFerrari);
+                oos.writeObject(redMaserati);
+                oos.writeObject(redMcLaren);
+                oos.writeObject(whiteFerrari);
+                oos.writeObject(whiteFerrariConv);
+                oos.writeObject(whiteLambo);
+                oos.writeObject(whiteMaseratiConv);
+                oos.writeObject(yellowFerrari);
+                oos.writeObject(yellowLambo);
+                oos.writeObject(yellowMcLaren);
+                oos.close();
+            } catch (IOException ignored) {
+            }
+
         }
     }
 }
