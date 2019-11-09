@@ -16,12 +16,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Main extends Application {
-    private final File INVENTORY_DIRECTORY = new File("src/resources/inventory");
-    private final File ASTON_INVENTORY_FILE_LOCATION = new File("src/resources/inventory/aston.dat");
-    private final File FERRARI_INVENTORY_FILE_LOCATION = new File("src/resources/inventory/ferrari.dat");
-    private final File LAMBO_INVENTORY_FILE_LOCATION = new File("src/resources/inventory/lamborghini.dat");
-    private final File MCLAREN_INVENTORY_FILE_LOCATION = new File("src/resources/inventory/mclaren.dat");
-    private final File MASERATI_INVENTORY_FILE_LOCATION = new File("src/resources/inventory/maserati.dat");
+    private final File INVENTORY_FILE_LOCATION = new File("src/resources/inventory.dat");
     ArrayList<Car> inventoryList = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -30,12 +25,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        createInitialInventory();
-        readInventory();
         VBox outerBox = new VBox();
         Label exoticMovesTitle = new Label("Exotic Moves");
         exoticMovesTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 40));
-        outerBox.setAlignment(Pos.TOP_CENTER);
+        exoticMovesTitle.setAlignment(Pos.CENTER);
 
         FlowPane inventoryFlowPane = new FlowPane();
         ScrollPane inventoryScrollPane = new ScrollPane();
@@ -49,119 +42,67 @@ public class Main extends Application {
     }
 
     private void createInitialInventory() {
-        if (!INVENTORY_DIRECTORY.exists()) {
-            if (!INVENTORY_DIRECTORY.mkdir()) {
-                System.out.println("Inventory Folder not created, terminating.");
-                System.exit(1);
+        if (!INVENTORY_FILE_LOCATION.exists()) {
+            Car blackAstConv = new Aston("Black", true, 0, new File("/resources/images/BlkAstonConvertible.jpg"));
+            Car blackFerrariConv = new Ferrari("Black", true, 0, new File("/resources/images/BlkFerrariConvertible.jpg"));
+            Car blackLambo = new Lamborghini("Black", false, 0, new File("/resources/images/BlkLambo.jpg"));
+            Car blackLamboConv = new Lamborghini("Black", true, 0, new File("/resources/images/BlkLamboConvertible.jpg"));
+            Car blackMaserati = new Maserati("Black", false, 0, new File("/resources/images/BlkMaserati.jpg"));
+            Car blackMcLaren = new McLaren("Black", false, 0, new File("/resources/images/BlkMcLaren.jpg"));
+            Car blueAston = new Aston("Blue", false, 0, new File("/resources/images/BluAston.jpg"));
+            Car blueFerrariConv = new Ferrari("Blue", true, 0, new File("/resources/images/BluFerrariConvertible.jpg"));
+            Car blueLamboConv = new Lamborghini("Blue", true, 0, new File("/resources/images/BluLamboConvertible.jpg"));
+            Car blueMaserati = new Maserati("Blue", false, 0, new File("/resources/images/BluMaserati.jpg"));
+            Car blueMcLaren = new McLaren("Blue", false, 0, new File("/resources/images/BluMcLaren.jpg"));
+            Car greenAston = new Aston("Green", false, 0, new File("/resources/images/GreenAston.jpg"));
+            Car greenLambo = new Lamborghini("Green", false, 0, new File("/resources/images/GreenLambo.jpg"));
+            Car greenMcLaren = new McLaren("Green", false, 0, new File("/resources/images/GreenMcLaren.jpg"));
+            Car orangeMcLarenConv = new McLaren("Orange", true, 0, new File("/resources/images/OranMcLarConvertible.jpg"));
+            Car redAstonConv = new Aston("Red", true, 0, new File("/resources/images/RedAstonConvertible.jpg"));
+            Car redFerrari = new Ferrari("Red", false, 0, new File("/resources/images/RedFerrari.jpg"));
+            Car redMaserati = new Maserati("Red", false, 0, new File("/resources/images/RedMaserati.jpg"));
+            Car redMcLaren = new McLaren("Red", false, 0, new File("/resources/images/RedMcLaren.jpg"));
+            Car whiteFerrari = new Ferrari("White", false, 0, new File("/resources/images/WhiteFerrari.jpg"));
+            Car whiteFerrariConv = new Ferrari("White", true, 0, new File("/resources/images/WhiteFerrConvertible.jpg"));
+            Car whiteLambo = new Lamborghini("White", false, 0, new File("/resources/images/WhiteLambo.jpg"));
+            Car whiteMaseratiConv = new Maserati("White", true, 0, new File("/resources/images/WhiteMaserConvertible.jpg"));
+            Car yellowFerrari = new Ferrari("Yellow", false, 0, new File("/resources/images/YellowFerrari.jpg"));
+            Car yellowLambo = new Lamborghini("Yellow", false, 0, new File("/resources/images/YellowLambo.jpg"));
+            Car yellowMcLaren = new McLaren("Yellow", false, 0, new File("/resources/images/YellowMcLaren.jpg"));
+
+            try {
+                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(INVENTORY_FILE_LOCATION));
+                oos.writeInt(26);
+                oos.writeObject(blackAstConv);
+                oos.writeObject(blackFerrariConv);
+                oos.writeObject(blackLambo);
+                oos.writeObject(blackLamboConv);
+                oos.writeObject(blackMaserati);
+                oos.writeObject(blackMcLaren);
+                oos.writeObject(blueAston);
+                oos.writeObject(blueFerrariConv);
+                oos.writeObject(blueLamboConv);
+                oos.writeObject(blueMaserati);
+                oos.writeObject(blueMcLaren);
+                oos.writeObject(greenAston);
+                oos.writeObject(greenLambo);
+                oos.writeObject(greenMcLaren);
+                oos.writeObject(orangeMcLarenConv);
+                oos.writeObject(redAstonConv);
+                oos.writeObject(redFerrari);
+                oos.writeObject(redMaserati);
+                oos.writeObject(redMcLaren);
+                oos.writeObject(whiteFerrari);
+                oos.writeObject(whiteFerrariConv);
+                oos.writeObject(whiteLambo);
+                oos.writeObject(whiteMaseratiConv);
+                oos.writeObject(yellowFerrari);
+                oos.writeObject(yellowLambo);
+                oos.writeObject(yellowMcLaren);
+                oos.close();
+            } catch (IOException ignored) {
             }
 
-            if (!ASTON_INVENTORY_FILE_LOCATION.exists()) {
-                ArrayList<Car> astonInitInv = new ArrayList<>();
-                astonInitInv.add(new Aston("Black", true, 0, new File("/resources/images/BlkAstonConvertible.jpg")));
-                astonInitInv.add(new Aston("Blue", false, 0, new File("/resources/images/BluAston.jpg")));
-                astonInitInv.add(new Aston("Green", false, 0, new File("/resources/images/GreenAston.jpg")));
-                astonInitInv.add(new Aston("Red", true, 0, new File("/resources/images/RedAstonConvertible.jpg")));
-                writeInventory(astonInitInv, ASTON_INVENTORY_FILE_LOCATION);
-            }
-            if (!FERRARI_INVENTORY_FILE_LOCATION.exists()) {
-                ArrayList<Car> ferrariInitInv = new ArrayList<>();
-                ferrariInitInv.add(new Ferrari("Black", true, 0, new File("/resources/images/BlkFerrariConvertible.jpg")));
-                ferrariInitInv.add(new Ferrari("Blue", true, 0, new File("/resources/images/BluFerrariConvertible.jpg")));
-                ferrariInitInv.add(new Ferrari("Red", false, 0, new File("/resources/images/RedFerrari.jpg")));
-                ferrariInitInv.add(new Ferrari("White", false, 0, new File("/resources/images/WhiteFerrari.jpg")));
-                ferrariInitInv.add(new Ferrari("White", true, 0, new File("/resources/images/WhiteFerrConvertible.jpg")));
-                ferrariInitInv.add(new Ferrari("Yellow", false, 0, new File("/resources/images/YellowFerrari.jpg")));
-                writeInventory(ferrariInitInv, FERRARI_INVENTORY_FILE_LOCATION);
-            }
-            if (!LAMBO_INVENTORY_FILE_LOCATION.exists()) {
-                ArrayList<Car> lamboInitInv = new ArrayList<>();
-                lamboInitInv.add(new Lamborghini("Black", false, 0, new File("/resources/images/BlkLambo.jpg")));
-                lamboInitInv.add(new Lamborghini("Black", true, 0, new File("/resources/images/BlkLamboConvertible.jpg")));
-                lamboInitInv.add(new Lamborghini("Blue", true, 0, new File("/resources/images/BluLamboConvertible.jpg")));
-                lamboInitInv.add(new Lamborghini("Green", false, 0, new File("/resources/images/GreenLambo.jpg")));
-                lamboInitInv.add(new Lamborghini("White", false, 0, new File("/resources/images/WhiteLambo.jpg")));
-                lamboInitInv.add(new Lamborghini("Yellow", false, 0, new File("/resources/images/YellowLambo.jpg")));
-                writeInventory(lamboInitInv, LAMBO_INVENTORY_FILE_LOCATION);
-            }
-            if (!MCLAREN_INVENTORY_FILE_LOCATION.exists()) {
-                ArrayList<Car> mclarenInitInv = new ArrayList<>();
-                mclarenInitInv.add(new McLaren("Black", false, 0, new File("/resources/images/BlkMcLaren.jpg")));
-                mclarenInitInv.add(new McLaren("Blue", false, 0, new File("/resources/images/BluMcLaren.jpg")));
-                mclarenInitInv.add(new McLaren("Green", false, 0, new File("/resources/images/GreenMcLaren.jpg")));
-                mclarenInitInv.add(new McLaren("Orange", true, 0, new File("/resources/images/OranMcLarConvertible.jpg")));
-                mclarenInitInv.add(new McLaren("Red", false, 0, new File("/resources/images/RedMcLaren.jpg")));
-                mclarenInitInv.add(new McLaren("Yellow", false, 0, new File("/resources/images/YellowMcLaren.jpg")));
-                writeInventory(mclarenInitInv, MCLAREN_INVENTORY_FILE_LOCATION);
-            }
-            if (!MASERATI_INVENTORY_FILE_LOCATION.exists()) {
-                ArrayList<Car> maseratiInitInv = new ArrayList<>();
-                maseratiInitInv.add(new Maserati("Black", false, 0, new File("/resources/images/BlkMaserati.jpg")));
-                maseratiInitInv.add(new Maserati("Blue", false, 0, new File("/resources/images/BluMaserati.jpg")));
-                maseratiInitInv.add(new Maserati("Red", false, 0, new File("/resources/images/RedMaserati.jpg")));
-                maseratiInitInv.add(new Maserati("White", true, 0, new File("/resources/images/WhiteMaserConvertible.jpg")));
-                writeInventory(maseratiInitInv, MASERATI_INVENTORY_FILE_LOCATION);
-            }
-        }
-    }
-
-    private void writeInventory(ArrayList<Car> list, File file) {
-        try {
-            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
-            oos.writeInt(list.size());
-            for (Car car : list) {
-                oos.writeObject(car);
-            }
-            oos.close();
-        } catch (IOException ignored) {
-        }
-    }
-
-    private void readInventory() {
-        int inventoryItems;
-        ObjectInputStream ois;
-        try {
-            ois = new ObjectInputStream(new FileInputStream(ASTON_INVENTORY_FILE_LOCATION));
-            inventoryItems = ois.readInt();
-            for (int i = 0; i < inventoryItems; i++) {
-                Aston car = (Aston) ois.readObject();
-                inventoryList.add(car);
-            }
-            ois.close();
-
-            ois = new ObjectInputStream(new FileInputStream(FERRARI_INVENTORY_FILE_LOCATION));
-            inventoryItems = ois.readInt();
-            for (int i = 0; i < inventoryItems; i++) {
-                Ferrari car = (Ferrari) ois.readObject();
-                inventoryList.add(car);
-            }
-            ois.close();
-
-            ois = new ObjectInputStream(new FileInputStream(LAMBO_INVENTORY_FILE_LOCATION));
-            inventoryItems = ois.readInt();
-            for (int i = 0; i < inventoryItems; i++) {
-                Lamborghini car = (Lamborghini) ois.readObject();
-                inventoryList.add(car);
-            }
-            ois.close();
-
-            ois = new ObjectInputStream(new FileInputStream(MCLAREN_INVENTORY_FILE_LOCATION));
-            inventoryItems = ois.readInt();
-            for (int i = 0; i < inventoryItems; i++) {
-                McLaren car = (McLaren) ois.readObject();
-                inventoryList.add(car);
-            }
-            ois.close();
-
-            ois = new ObjectInputStream(new FileInputStream(MASERATI_INVENTORY_FILE_LOCATION));
-            inventoryItems = ois.readInt();
-            for (int i = 0; i < inventoryItems; i++) {
-                Maserati car = (Maserati) ois.readObject();
-                inventoryList.add(car);
-            }
-            ois.close();
-
-
-        } catch (IOException | ClassNotFoundException ignored) {
         }
     }
 }
