@@ -1,0 +1,12 @@
+/** {*/
+/*    -fx-border-radius: 1px;*/
+/*    -fx-border-color: black;*/
+/*}*/
+VBox, HBox {
+    -fx-padding: 5px;
+}
+* {
+    -fx-border-insets: 2px;
+    -fx-background-insets: 2px;
+
+}

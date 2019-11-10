@@ -4,12 +4,16 @@ import com.Windspinks.ExoticMoves.Model.*;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -23,6 +27,8 @@ public class Main extends Application {
     private final File MCLAREN_INVENTORY_FILE_LOCATION = new File("src/resources/inventory/mclaren.dat");
     private final File MASERATI_INVENTORY_FILE_LOCATION = new File("src/resources/inventory/maserati.dat");
     ArrayList<Car> inventoryList = new ArrayList<>();
+    ArrayList<Car> inventoryFiltered = new ArrayList<>();
+    ArrayList<CheckBox> filtersList = new ArrayList<>();
 
     public static void main(String[] args) {
         launch(args);
@@ -36,16 +42,43 @@ public class Main extends Application {
         Label exoticMovesTitle = new Label("Exotic Moves");
         exoticMovesTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 40));
         outerBox.setAlignment(Pos.TOP_CENTER);
+        outerBox.getChildren().add(exoticMovesTitle);
+        outerBox.getChildren().add(createFilterBox());
 
         FlowPane inventoryFlowPane = new FlowPane();
         ScrollPane inventoryScrollPane = new ScrollPane();
         inventoryScrollPane.setContent(inventoryFlowPane);
 
-        outerBox.getChildren().add(exoticMovesTitle);
         Scene scene = new Scene(outerBox, 500, 500);
+        scene.getStylesheets().add(getClass().getResource("ExoticMoves.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("Exotic Moves");
         primaryStage.show();
+    }
+
+    private HBox createFilterBox() {
+        VBox brandFilterBox = new VBox();
+        Text brandFilterTitle = new Text("Filter by brand");
+        CheckBox brandAstonCheck = new CheckBox("Aston Martin");
+        CheckBox brandFerrariCheck = new CheckBox("Ferrari");
+        CheckBox brandLamboCheck = new CheckBox("Lamborghini");
+        CheckBox brandMclarenCheck = new CheckBox("McLaren");
+        CheckBox brandMaseratiCheck = new CheckBox("Maserati");
+
+        brandFilterBox.getChildren().addAll(brandFilterTitle, brandAstonCheck, brandFerrariCheck, brandLamboCheck, brandMclarenCheck, brandMaseratiCheck);
+
+        VBox colorFilterBox = new VBox();
+
+        VBox isConvFilterBox = new VBox();
+
+        VBox cylinderFilterBox = new VBox();
+
+        VBox priceFilterBox = new VBox();
+
+        Button filterButton = new Button("Filter");
+        Button clearFilterButton = new Button("Clear Filters");
+
+        return new HBox(brandFilterBox, colorFilterBox, isConvFilterBox, cylinderFilterBox, priceFilterBox, filterButton, clearFilterButton);
     }
 
     private void createInitialInventory() {
