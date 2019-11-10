@@ -2,12 +2,10 @@ package com.Windspinks.ExoticMoves;
 
 import com.Windspinks.ExoticMoves.Model.*;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,6 +16,8 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Main extends Application {
     private final File INVENTORY_DIRECTORY = new File("src/resources/inventory");
@@ -27,7 +27,7 @@ public class Main extends Application {
     private final File MCLAREN_INVENTORY_FILE_LOCATION = new File("src/resources/inventory/mclaren.dat");
     private final File MASERATI_INVENTORY_FILE_LOCATION = new File("src/resources/inventory/maserati.dat");
     ArrayList<Car> inventoryList = new ArrayList<>();
-    ArrayList<Car> inventoryFiltered = new ArrayList<>();
+    Set<Car> inventoryFiltered = new HashSet<>();
     ArrayList<CheckBox> filtersList = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -40,7 +40,7 @@ public class Main extends Application {
         readInventory();
         VBox outerBox = new VBox();
         Label exoticMovesTitle = new Label("Exotic Moves");
-        exoticMovesTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 40));
+        exoticMovesTitle.setId("ExoticMovesTitle");
         outerBox.setAlignment(Pos.TOP_CENTER);
         outerBox.getChildren().add(exoticMovesTitle);
         outerBox.getChildren().add(createFilterBox());
@@ -49,7 +49,7 @@ public class Main extends Application {
         ScrollPane inventoryScrollPane = new ScrollPane();
         inventoryScrollPane.setContent(inventoryFlowPane);
 
-        Scene scene = new Scene(outerBox, 500, 500);
+        Scene scene = new Scene(outerBox);
         scene.getStylesheets().add(getClass().getResource("ExoticMoves.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("Exotic Moves");
@@ -57,26 +57,89 @@ public class Main extends Application {
     }
 
     private HBox createFilterBox() {
-        VBox brandFilterBox = new VBox();
         Text brandFilterTitle = new Text("Filter by brand");
         CheckBox brandAstonCheck = new CheckBox("Aston Martin");
+        brandAstonCheck.setId("brandAstonCheckBox");
         CheckBox brandFerrariCheck = new CheckBox("Ferrari");
+        brandFerrariCheck.setId("brandFerrariCheckBox");
         CheckBox brandLamboCheck = new CheckBox("Lamborghini");
+        brandLamboCheck.setId("brandLamborghiniCheckBox");
         CheckBox brandMclarenCheck = new CheckBox("McLaren");
+        brandMclarenCheck.setId("brandMcLarenCheckBox");
         CheckBox brandMaseratiCheck = new CheckBox("Maserati");
+        brandMaseratiCheck.setId("brandMaseratiCheckBox");
+        VBox brandFilterBox = new VBox(brandFilterTitle, brandAstonCheck, brandFerrariCheck, brandLamboCheck, brandMclarenCheck, brandMaseratiCheck);
 
-        brandFilterBox.getChildren().addAll(brandFilterTitle, brandAstonCheck, brandFerrariCheck, brandLamboCheck, brandMclarenCheck, brandMaseratiCheck);
+        Text colorFilterTitle = new Text("Filter by Color");
+        CheckBox colorBlackCheck = new CheckBox("Black");
+        colorBlackCheck.setId("colorBlackCheckBox");
+        CheckBox colorBlueCheck = new CheckBox("Blue");
+        colorBlueCheck.setId("colorBlueCheckBox");
+        CheckBox colorGreenCheck = new CheckBox("Green");
+        colorGreenCheck.setId("colorGreenCheckBox");
+        CheckBox colorOrangeCheck = new CheckBox("Orange");
+        colorOrangeCheck.setId("colorOrangeCheckBox");
+        CheckBox colorRedCheck = new CheckBox("Red");
+        colorRedCheck.setId("colorRedCheckBox");
+        CheckBox colorWhiteCheck = new CheckBox("White");
+        colorWhiteCheck.setId("colorWhiteCheckBox");
+        CheckBox colorYellowCheck = new CheckBox("Yellow");
+        colorYellowCheck.setId("colorYellowCheckBox");
+        VBox colorFilterBox = new VBox(colorFilterTitle, colorBlackCheck, colorBlueCheck, colorGreenCheck, colorOrangeCheck, colorRedCheck, colorWhiteCheck, colorYellowCheck);
 
-        VBox colorFilterBox = new VBox();
+        Text isConvTitle = new Text("Filter by Y/N Convertible");
+        CheckBox isConvCheck = new CheckBox("Yes");
+        isConvCheck.setId("isConvCheckbox");
+        CheckBox isNotConvCheck = new CheckBox("No");
+        isNotConvCheck.setId("isNotConvCheckbox");
+        VBox isConvFilterBox = new VBox(isConvTitle, isConvCheck, isNotConvCheck);
 
-        VBox isConvFilterBox = new VBox();
+        Text cylinderTitle = new Text("Filter by # Cylinders");
+        CheckBox cylinderCheck4 = new CheckBox("4");
+        cylinderCheck4.setId("cylinderCheckBox4");
+        CheckBox cylinderCheck6 = new CheckBox("6");
+        cylinderCheck6.setId("cylinderCheckBox6");
+        CheckBox cylinderCheck8 = new CheckBox("8");
+        cylinderCheck8.setId("cylinderCheckBox8");
+        VBox cylinderFilterBox = new VBox(cylinderTitle, cylinderCheck4, cylinderCheck6, cylinderCheck8);
 
-        VBox cylinderFilterBox = new VBox();
-
-        VBox priceFilterBox = new VBox();
+        Text priceFilterTitle = new Text("Filter by Price (in thousands)\n" +
+            "Show all cars less than");
+        Slider priceFilterSlider = new Slider(0, 500, 500);
+        priceFilterSlider.setShowTickMarks(true);
+        priceFilterSlider.setShowTickLabels(true);
+        priceFilterSlider.setMajorTickUnit(100);
+        priceFilterSlider.setBlockIncrement(100);
+        priceFilterSlider.setMinorTickCount(1);
+        priceFilterSlider.setSnapToTicks(true);
+        priceFilterSlider.setMinWidth(300);
+        VBox priceFilterBox = new VBox(priceFilterTitle, priceFilterSlider);
 
         Button filterButton = new Button("Filter");
+        filterButton.setOnAction((ActionEvent event) -> {
+
+        });
         Button clearFilterButton = new Button("Clear Filters");
+        clearFilterButton.setOnAction((ActionEvent event) -> {
+            brandAstonCheck.setSelected(false);
+            brandFerrariCheck.setSelected(false);
+            brandLamboCheck.setSelected(false);
+            brandMclarenCheck.setSelected(false);
+            brandMaseratiCheck.setSelected(false);
+            colorBlackCheck.setSelected(false);
+            colorBlueCheck.setSelected(false);
+            colorGreenCheck.setSelected(false);
+            colorOrangeCheck.setSelected(false);
+            colorRedCheck.setSelected(false);
+            colorWhiteCheck.setSelected(false);
+            colorYellowCheck.setSelected(false);
+            isConvCheck.setSelected(false);
+            isNotConvCheck.setSelected(false);
+            cylinderCheck4.setSelected(false);
+            cylinderCheck6.setSelected(false);
+            cylinderCheck8.setSelected(false);
+            priceFilterSlider.setValue(priceFilterSlider.getMax());
+        });
 
         return new HBox(brandFilterBox, colorFilterBox, isConvFilterBox, cylinderFilterBox, priceFilterBox, filterButton, clearFilterButton);
     }

@@ -2,11 +2,21 @@
 /*    -fx-border-radius: 1px;*/
 /*    -fx-border-color: black;*/
 /*}*/
-VBox, HBox {
-    -fx-padding: 5px;
-}
 * {
     -fx-border-insets: 2px;
     -fx-background-insets: 2px;
-
 }
+
+#ExoticMovesTitle {
+    -fx-font-size: 40;
+    -fx-font-family: "Verdana";
+}
+
+Text, CheckBox {
+    -fx-font-size: 14;
+}
+
+VBox, HBox {
+    -fx-padding: 5px;
+}
+
