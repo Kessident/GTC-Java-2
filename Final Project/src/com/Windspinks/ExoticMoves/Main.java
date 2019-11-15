@@ -6,11 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -26,9 +27,9 @@ public class Main extends Application {
     private final File LAMBO_INVENTORY_FILE_LOCATION = new File("src/resources/inventory/lamborghini.dat");
     private final File MCLAREN_INVENTORY_FILE_LOCATION = new File("src/resources/inventory/mclaren.dat");
     private final File MASERATI_INVENTORY_FILE_LOCATION = new File("src/resources/inventory/maserati.dat");
-    ArrayList<Car> inventoryList = new ArrayList<>();
-    Set<Car> inventoryFiltered = new HashSet<>();
-    ArrayList<CheckBox> filtersList = new ArrayList<>();
+    private Set<Car> inventoryList = new HashSet<>();
+    private Set<Car> inventoryFiltered = new HashSet<>();
+    private ArrayList<CheckBox> filtersList = new ArrayList<>();
 
     public static void main(String[] args) {
         launch(args);
@@ -46,14 +47,35 @@ public class Main extends Application {
         outerBox.getChildren().add(createFilterBox());
 
         FlowPane inventoryFlowPane = new FlowPane();
+        inventoryFlowPane.setId("InventoryPane");
+        createInventoryPane(inventoryFlowPane, inventoryList);
+
         ScrollPane inventoryScrollPane = new ScrollPane();
         inventoryScrollPane.setContent(inventoryFlowPane);
+        inventoryScrollPane.setFitToWidth(true);
+
+        outerBox.getChildren().add(inventoryScrollPane);
 
         Scene scene = new Scene(outerBox);
         scene.getStylesheets().add(getClass().getResource("ExoticMoves.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("Exotic Moves");
         primaryStage.show();
+    }
+
+    private void createInventoryPane(FlowPane pane, Set<Car> inventorySet) {
+        pane.getChildren().clear();
+
+        for (Car car : inventorySet) {
+            ImageView carImage = new ImageView(new Image(car.getImageFile().getAbsolutePath()));
+            carImage.setFitHeight(150);
+            carImage.setFitWidth(200);
+            Label carLabel = new Label(car.getBrand().name() + " - $" + car.getPrice() + "K");
+
+            VBox carBox = new VBox(carImage, carLabel);
+            carBox.setAlignment(Pos.CENTER);
+            pane.getChildren().add(carBox);
+        }
     }
 
     private HBox createFilterBox() {
@@ -119,6 +141,7 @@ public class Main extends Application {
         filterButton.setOnAction((ActionEvent event) -> {
 
         });
+
         Button clearFilterButton = new Button("Clear Filters");
         clearFilterButton.setOnAction((ActionEvent event) -> {
             brandAstonCheck.setSelected(false);

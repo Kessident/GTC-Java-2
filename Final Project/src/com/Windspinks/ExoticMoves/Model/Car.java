@@ -81,7 +81,5 @@ public abstract class Car implements Serializable {
         this.imageFile = imageFile;
     }
 
-    protected enum Brand {AstonMartin, Ferrari, Lamborghini, McLaren, Maserati}
-
     protected enum Color {Black, Blue, Green, Orange, Red, White, Yellow}
 }
