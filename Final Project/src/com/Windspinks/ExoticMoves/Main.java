@@ -4,6 +4,7 @@ import com.Windspinks.ExoticMoves.Model.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -16,6 +17,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -73,10 +75,28 @@ public class Main extends Application {
             carImage.setFitHeight(150);
             carImage.setFitWidth(200);
             carImage.setOnMouseClicked((MouseEvent event) -> {
-                System.out.println(car);
-                Stage primaryStage = getPStage();
-                primaryStage.setScene(null);
-                primaryStage.getScene();
+                Scene scene = getPStage().getScene();
+                Parent inventoryView = scene.getRoot();
+
+                Text brandText = new Text("Brand: " + car.getBrand().name());
+                ImageView carImageLarge = new ImageView(new Image(car.getImageFile().getAbsolutePath()));
+                Text priceText = new Text("$" + car.getPrice() + "K");
+                Text colorText = new Text("Color: " + car.getColor().name());
+                Text convText = new Text("Convertible: " + (car.isConvertible() ? "Yes" : "No"));
+                Text cylinderText = new Text("# of Cylinders: " + car.getNumCylinders());
+                Text sixtySpeedText = new Text("0-60: " + car.getZeroToSixty() + " seconds");
+                Button purchaseButton = new Button("Purchase");
+
+                Button backButton = new Button("Back");
+                backButton.setOnAction((ActionEvent aeEvent) -> scene.setRoot(inventoryView));
+
+
+                VBox detailView = new VBox(brandText, carImageLarge, priceText, colorText, convText, cylinderText, sixtySpeedText, purchaseButton, backButton);
+                detailView.setAlignment(Pos.CENTER);
+
+                purchaseButton.setOnAction((ActionEvent aeEvent) -> purchaseMenu(car));
+
+                scene.setRoot(detailView);
             });
             Label carLabel = new Label(car.getBrand().name() + " - $" + car.getPrice() + "K");
 
@@ -84,6 +104,83 @@ public class Main extends Application {
             carBox.setAlignment(Pos.CENTER);
             pane.getChildren().add(carBox);
         }
+    }
+
+    private void purchaseMenu(Car carToBePurchased) {
+        Scene scene = getPStage().getScene();
+        Parent detailView = scene.getRoot();
+
+        Button backButton = new Button("Back");
+        backButton.setOnAction((ActionEvent aeEvent) -> scene.setRoot(detailView));
+
+        Label firstNameLabel = new Label("First name: ");
+        TextField firstNameInput = new TextField();
+        HBox firstNameBox = new HBox(firstNameLabel, firstNameInput);
+        firstNameBox.setAlignment(Pos.CENTER_LEFT);
+
+        Label lastNameLabel = new Label("Last name: ");
+        TextField lastNameInput = new TextField();
+        HBox lastNameBox = new HBox(lastNameLabel, lastNameInput);
+        lastNameBox.setAlignment(Pos.CENTER_LEFT);
+
+        Label creditLabel = new Label("Credit card number: ");
+        TextField creditInput = new TextField();
+        HBox creditBox = new HBox(creditLabel, creditInput);
+        creditBox.setAlignment(Pos.CENTER_LEFT);
+
+        Label creditExpDateLabel = new Label("Exp Date: ");
+        DatePicker creditExpDateInput = new DatePicker();
+        HBox creditExpDateBox = new HBox(creditExpDateLabel, creditExpDateInput);
+        creditExpDateBox.setAlignment(Pos.CENTER_LEFT);
+
+        Label cvvLabel = new Label("First name: ");
+        TextField cvvInput = new TextField();
+        HBox cvvBox = new HBox(cvvLabel, cvvInput);
+        cvvBox.setAlignment(Pos.CENTER_LEFT);
+
+        Button submitButton = new Button("Submit");
+        submitButton.setOnAction((ActionEvent event) -> {
+            boolean isValid = true;
+
+            //First Name - Not Empty, a-Z
+            String firstName = firstNameInput.getText();
+            if (firstName.isEmpty() || !firstName.chars().allMatch(Character::isLetter)) {
+                isValid = false;
+            }
+
+            //Last Name - Not Empty, a-Z
+            String lastName = lastNameInput.getText();
+            if (lastName.isEmpty() || !lastName.chars().allMatch(Character::isLetter)) {
+                isValid = false;
+            }
+
+            //Credit Number - Not Empty, All Digits, Length 16
+            String creditNumber = creditInput.getText();
+            if (creditNumber.isEmpty() || !creditNumber.chars().allMatch(Character::isDigit) || creditNumber.length() != 16) {
+                isValid = false;
+            }
+
+            //DATE - Exists, Date has not passed
+            LocalDate expDate = creditExpDateInput.getValue();
+            if (expDate == null || expDate.isBefore(LocalDate.now())) {
+                isValid = false;
+            }
+
+            //CVV - Not Empty, All Digits, Length 3
+            String cvv = cvvInput.getText();
+            if (cvv.isEmpty() || !cvv.chars().allMatch(Character::isDigit) || cvv.length() != 3) {
+                isValid = false;
+            }
+
+            if (isValid) {
+                //Congratulate user on purchase of car
+            }
+        });
+
+        VBox paymentInfo = new VBox(firstNameBox, lastNameBox, creditBox, creditExpDateBox, cvvBox);
+
+        VBox outerBox = new VBox(backButton, paymentInfo);
+        scene.setRoot(outerBox);
     }
 
     private HBox createFilterBox() {
@@ -387,7 +484,7 @@ public class Main extends Application {
         }
     }
 
-    private static Stage getPStage(){
+    private static Stage getPStage() {
         return pStage;
     }
 
