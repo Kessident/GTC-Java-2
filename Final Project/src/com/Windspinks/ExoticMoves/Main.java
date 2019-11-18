@@ -140,33 +140,29 @@ public class Main extends Application {
         filterButton.setOnAction((ActionEvent event) -> {
             inventoryFiltered = new HashSet<>(inventoryList);
             Set<Car> tempList = new HashSet<>();
-            Set<Brand> brandFilters = new HashSet<>();
-            Set<Color> colorFilters = new HashSet<>();
-            Set<Integer> cylinderFilters = new HashSet<>();
 
+            //Brand Filter
             if (brandAstonCheck.isSelected()) {
-//                brandFilters.add(Brand.AstonMartin);
                 tempList.addAll(CarFilters.filterByBrand(Brand.AstonMartin, inventoryList));
             }
             if (brandFerrariCheck.isSelected()) {
-//                brandFilters.add(Brand.Ferrari);
                 tempList.addAll(CarFilters.filterByBrand(Brand.Ferrari, inventoryList));
             }
             if (brandLamboCheck.isSelected()) {
-//                brandFilters.add(Brand.Lamborghini);
                 tempList.addAll(CarFilters.filterByBrand(Brand.Lamborghini, inventoryList));
             }
             if (brandMclarenCheck.isSelected()) {
-//                brandFilters.add(Brand.McLaren);
                 tempList.addAll(CarFilters.filterByBrand(Brand.McLaren, inventoryList));
             }
             if (brandMaseratiCheck.isSelected()) {
-//                brandFilters.add(Brand.Maserati);
                 tempList.addAll(CarFilters.filterByBrand(Brand.Maserati, inventoryList));
             }
-            if (tempList.size() > 0) {inventoryFiltered.retainAll(tempList);}
+            if (tempList.size() > 0) {
+                inventoryFiltered.retainAll(tempList);
+            }
 
 
+            //Color Filters
             tempList.clear();
             if (colorBlackCheck.isSelected()) {
                 tempList.addAll(CarFilters.filterByColor(Color.Black, inventoryList));
@@ -189,9 +185,12 @@ public class Main extends Application {
             if (colorYellowCheck.isSelected()) {
                 tempList.addAll(CarFilters.filterByColor(Color.Yellow, inventoryList));
             }
-            if (tempList.size() > 0) {inventoryFiltered.retainAll(tempList);}
+            if (tempList.size() > 0) {
+                inventoryFiltered.retainAll(tempList);
+            }
 
 
+            //Convertible Filters
             tempList.clear();
             if (isConvCheck.isSelected()) {
                 tempList.addAll(CarFilters.filterByConv(true, inventoryList));
@@ -199,9 +198,12 @@ public class Main extends Application {
             if (isNotConvCheck.isSelected()) {
                 tempList.addAll(CarFilters.filterByConv(false, inventoryList));
             }
-            if (tempList.size() > 0) {inventoryFiltered.retainAll(tempList);}
+            if (tempList.size() > 0) {
+                inventoryFiltered.retainAll(tempList);
+            }
 
 
+            //Cylinder Filters
             tempList.clear();
             if (cylinderCheck6.isSelected()) {
                 tempList.addAll(CarFilters.filterByNumCylinders(6, inventoryList));
@@ -212,17 +214,23 @@ public class Main extends Application {
             if (cylinderCheck12.isSelected()) {
                 tempList.addAll(CarFilters.filterByNumCylinders(12, inventoryList));
             }
-            if (tempList.size() > 0) {inventoryFiltered.retainAll(tempList);}
+            if (tempList.size() > 0) {
+                inventoryFiltered.retainAll(tempList);
+            }
 
 
+            //Price Filter
             tempList.clear();
             double lowerThanPrice = priceFilterSlider.getValue();
             tempList.addAll(CarFilters.filterByPrice(lowerThanPrice, inventoryList));
-            if (tempList.size() > 0) {inventoryFiltered.retainAll(tempList);}
-            
+            if (tempList.size() > 0) {
+                inventoryFiltered.retainAll(tempList);
+            }
+
+
+            //Repopulate FlowPane with filtered Cars
             FlowPane flowPane = (FlowPane) scene.lookup("#InventoryPane");
             populatePaneWithCarCards(flowPane, inventoryFiltered);
-
         });
 
         Button clearFilterButton = new Button("Clear Filters");
