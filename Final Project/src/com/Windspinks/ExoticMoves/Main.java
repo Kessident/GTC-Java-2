@@ -123,6 +123,11 @@ public class Main extends Application {
         HBox lastNameBox = new HBox(lastNameLabel, lastNameInput);
         lastNameBox.setAlignment(Pos.CENTER_LEFT);
 
+        Label phoneLabel = new Label("Phone Number: ");
+        TextField phoneInput = new TextField();
+        HBox phoneBox = new HBox(phoneLabel, phoneInput);
+        phoneBox.setAlignment(Pos.CENTER_LEFT);
+
         Label creditLabel = new Label("Credit card number: ");
         TextField creditInput = new TextField();
         HBox creditBox = new HBox(creditLabel, creditInput);
@@ -133,10 +138,11 @@ public class Main extends Application {
         HBox creditExpDateBox = new HBox(creditExpDateLabel, creditExpDateInput);
         creditExpDateBox.setAlignment(Pos.CENTER_LEFT);
 
-        Label cvvLabel = new Label("First name: ");
+        Label cvvLabel = new Label("CVV: ");
         TextField cvvInput = new TextField();
         HBox cvvBox = new HBox(cvvLabel, cvvInput);
         cvvBox.setAlignment(Pos.CENTER_LEFT);
+
 
         Button submitButton = new Button("Submit");
         submitButton.setOnAction((ActionEvent event) -> {
@@ -173,11 +179,19 @@ public class Main extends Application {
             }
 
             if (isValid) {
-                //Congratulate user on purchase of car
+                String confirmationString = "Thank you " + firstName + " " + lastName + " for your purchase of a " +
+                    carToBePurchased.getColor().name() + " " + carToBePurchased.getBrand().name() + ".\n" +
+                    "You will be contacted shortly to arrange pickup or delivery.\n" +
+                    "Thank you for choosing Exotic Moves!";
+                Text confirmation = new Text(confirmationString);
+
+                VBox congratsBox = new VBox(confirmation);
+                congratsBox.setAlignment(Pos.CENTER);
+                scene.setRoot(congratsBox);
             }
         });
 
-        VBox paymentInfo = new VBox(firstNameBox, lastNameBox, creditBox, creditExpDateBox, cvvBox);
+        VBox paymentInfo = new VBox(firstNameBox, lastNameBox, phoneBox, creditBox, creditExpDateBox, cvvBox, submitButton);
 
         VBox outerBox = new VBox(backButton, paymentInfo);
         scene.setRoot(outerBox);
