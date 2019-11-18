@@ -138,66 +138,88 @@ public class Main extends Application {
 
         Button filterButton = new Button("Filter");
         filterButton.setOnAction((ActionEvent event) -> {
-            inventoryFiltered.clear();
+            inventoryFiltered = new HashSet<>(inventoryList);
+            Set<Car> tempList = new HashSet<>();
+            Set<Brand> brandFilters = new HashSet<>();
+            Set<Color> colorFilters = new HashSet<>();
+            Set<Integer> cylinderFilters = new HashSet<>();
 
             if (brandAstonCheck.isSelected()) {
-                inventoryFiltered.addAll(CarFilters.filterByBrand(Brand.AstonMartin, inventoryList));
+//                brandFilters.add(Brand.AstonMartin);
+                tempList.addAll(CarFilters.filterByBrand(Brand.AstonMartin, inventoryList));
             }
             if (brandFerrariCheck.isSelected()) {
-                inventoryFiltered.addAll(CarFilters.filterByBrand(Brand.Ferrari, inventoryList));
+//                brandFilters.add(Brand.Ferrari);
+                tempList.addAll(CarFilters.filterByBrand(Brand.Ferrari, inventoryList));
             }
             if (brandLamboCheck.isSelected()) {
-                inventoryFiltered.addAll(CarFilters.filterByBrand(Brand.Lamborghini, inventoryList));
+//                brandFilters.add(Brand.Lamborghini);
+                tempList.addAll(CarFilters.filterByBrand(Brand.Lamborghini, inventoryList));
             }
             if (brandMclarenCheck.isSelected()) {
-                inventoryFiltered.addAll(CarFilters.filterByBrand(Brand.McLaren, inventoryList));
+//                brandFilters.add(Brand.McLaren);
+                tempList.addAll(CarFilters.filterByBrand(Brand.McLaren, inventoryList));
             }
             if (brandMaseratiCheck.isSelected()) {
-                inventoryFiltered.addAll(CarFilters.filterByBrand(Brand.Maserati, inventoryList));
+//                brandFilters.add(Brand.Maserati);
+                tempList.addAll(CarFilters.filterByBrand(Brand.Maserati, inventoryList));
             }
+            if (tempList.size() > 0) {inventoryFiltered.retainAll(tempList);}
 
+
+            tempList.clear();
             if (colorBlackCheck.isSelected()) {
-                inventoryFiltered.addAll(CarFilters.filterByColor(Color.Black, inventoryList));
+                tempList.addAll(CarFilters.filterByColor(Color.Black, inventoryList));
             }
             if (colorBlueCheck.isSelected()) {
-                inventoryFiltered.addAll(CarFilters.filterByColor(Color.Blue, inventoryList));
+                tempList.addAll(CarFilters.filterByColor(Color.Blue, inventoryList));
             }
             if (colorGreenCheck.isSelected()) {
-                inventoryFiltered.addAll(CarFilters.filterByColor(Color.Green, inventoryList));
+                tempList.addAll(CarFilters.filterByColor(Color.Green, inventoryList));
             }
             if (colorOrangeCheck.isSelected()) {
-                inventoryFiltered.addAll(CarFilters.filterByColor(Color.Orange, inventoryList));
+                tempList.addAll(CarFilters.filterByColor(Color.Orange, inventoryList));
             }
             if (colorRedCheck.isSelected()) {
-                inventoryFiltered.addAll(CarFilters.filterByColor(Color.Red, inventoryList));
+                tempList.addAll(CarFilters.filterByColor(Color.Red, inventoryList));
             }
             if (colorWhiteCheck.isSelected()) {
-                inventoryFiltered.addAll(CarFilters.filterByColor(Color.White, inventoryList));
+                tempList.addAll(CarFilters.filterByColor(Color.White, inventoryList));
             }
             if (colorYellowCheck.isSelected()) {
-                inventoryFiltered.addAll(CarFilters.filterByColor(Color.Yellow, inventoryList));
+                tempList.addAll(CarFilters.filterByColor(Color.Yellow, inventoryList));
             }
+            if (tempList.size() > 0) {inventoryFiltered.retainAll(tempList);}
 
+
+            tempList.clear();
             if (isConvCheck.isSelected()) {
-                inventoryFiltered.addAll(CarFilters.filterByConv(true, inventoryList));
+                tempList.addAll(CarFilters.filterByConv(true, inventoryList));
             }
             if (isNotConvCheck.isSelected()) {
-                inventoryFiltered.addAll(CarFilters.filterByConv(false, inventoryList));
+                tempList.addAll(CarFilters.filterByConv(false, inventoryList));
             }
+            if (tempList.size() > 0) {inventoryFiltered.retainAll(tempList);}
 
+
+            tempList.clear();
             if (cylinderCheck6.isSelected()) {
-                inventoryFiltered.addAll(CarFilters.filterByNumCylinders(6, inventoryList));
+                tempList.addAll(CarFilters.filterByNumCylinders(6, inventoryList));
             }
             if (cylinderCheck8.isSelected()) {
-                inventoryFiltered.addAll(CarFilters.filterByNumCylinders(8, inventoryList));
+                tempList.addAll(CarFilters.filterByNumCylinders(8, inventoryList));
             }
             if (cylinderCheck12.isSelected()) {
-                inventoryFiltered.addAll(CarFilters.filterByNumCylinders(12, inventoryList));
+                tempList.addAll(CarFilters.filterByNumCylinders(12, inventoryList));
             }
+            if (tempList.size() > 0) {inventoryFiltered.retainAll(tempList);}
 
+
+            tempList.clear();
             double lowerThanPrice = priceFilterSlider.getValue();
-            inventoryFiltered.addAll(CarFilters.filterByPrice(lowerThanPrice, inventoryList));
-
+            tempList.addAll(CarFilters.filterByPrice(lowerThanPrice, inventoryList));
+            if (tempList.size() > 0) {inventoryFiltered.retainAll(tempList);}
+            
             FlowPane flowPane = (FlowPane) scene.lookup("#InventoryPane");
             populatePaneWithCarCards(flowPane, inventoryFiltered);
 
