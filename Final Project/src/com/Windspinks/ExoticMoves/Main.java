@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -20,6 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Main extends Application {
+    private static Stage pStage;
     private final File INVENTORY_DIRECTORY = new File("src/resources/inventory");
     private final File ASTON_INVENTORY_FILE_LOCATION = new File("src/resources/inventory/aston.dat");
     private final File FERRARI_INVENTORY_FILE_LOCATION = new File("src/resources/inventory/ferrari.dat");
@@ -36,6 +38,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        pStage = primaryStage;
         createInitialInventory();
         readInventory();
         VBox outerBox = new VBox();
@@ -44,7 +47,7 @@ public class Main extends Application {
         exoticMovesTitle.setId("ExoticMovesTitle");
         outerBox.setAlignment(Pos.TOP_CENTER);
         outerBox.getChildren().add(exoticMovesTitle);
-        outerBox.getChildren().add(createFilterBox(scene));
+        outerBox.getChildren().add(createFilterBox());
 
         FlowPane inventoryFlowPane = new FlowPane();
         inventoryFlowPane.setId("InventoryPane");
@@ -69,6 +72,12 @@ public class Main extends Application {
             ImageView carImage = new ImageView(new Image(car.getImageFile().getAbsolutePath()));
             carImage.setFitHeight(150);
             carImage.setFitWidth(200);
+            carImage.setOnMouseClicked((MouseEvent event) -> {
+                System.out.println(car);
+                Stage primaryStage = getPStage();
+                primaryStage.setScene(null);
+                primaryStage.getScene();
+            });
             Label carLabel = new Label(car.getBrand().name() + " - $" + car.getPrice() + "K");
 
             VBox carBox = new VBox(carImage, carLabel);
@@ -77,7 +86,7 @@ public class Main extends Application {
         }
     }
 
-    private HBox createFilterBox(Scene scene) {
+    private HBox createFilterBox() {
         Text brandFilterTitle = new Text("Filter by brand");
         CheckBox brandAstonCheck = new CheckBox("Aston Martin");
         brandAstonCheck.setId("brandAstonCheckBox");
@@ -229,7 +238,7 @@ public class Main extends Application {
 
 
             //Repopulate FlowPane with filtered Cars
-            FlowPane flowPane = (FlowPane) scene.lookup("#InventoryPane");
+            FlowPane flowPane = (FlowPane) getPStage().getScene().lookup("#InventoryPane");
             populatePaneWithCarCards(flowPane, inventoryFiltered);
         });
 
@@ -254,7 +263,7 @@ public class Main extends Application {
             cylinderCheck12.setSelected(false);
             priceFilterSlider.setValue(priceFilterSlider.getMax());
 
-            FlowPane flowPane = (FlowPane) scene.lookup("#InventoryPane");
+            FlowPane flowPane = (FlowPane) getPStage().getScene().lookup("#InventoryPane");
             populatePaneWithCarCards(flowPane, inventoryList);
         });
 
@@ -376,6 +385,10 @@ public class Main extends Application {
 
         } catch (IOException | ClassNotFoundException ignored) {
         }
+    }
+
+    private static Stage getPStage(){
+        return pStage;
     }
 
 }
