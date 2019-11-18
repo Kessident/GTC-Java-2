@@ -80,6 +80,4 @@ public abstract class Car implements Serializable {
     public void setImageFile(File imageFile) {
         this.imageFile = imageFile;
     }
-
-    protected enum Color {Black, Blue, Green, Orange, Red, White, Yellow}
 }

@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -48,7 +47,7 @@ public class Main extends Application {
 
         FlowPane inventoryFlowPane = new FlowPane();
         inventoryFlowPane.setId("InventoryPane");
-        createInventoryPane(inventoryFlowPane, inventoryList);
+        populatePaneWithCarCards(inventoryFlowPane, inventoryList);
 
         ScrollPane inventoryScrollPane = new ScrollPane();
         inventoryScrollPane.setContent(inventoryFlowPane);
@@ -63,7 +62,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    private void createInventoryPane(FlowPane pane, Set<Car> inventorySet) {
+    private void populatePaneWithCarCards(FlowPane pane, Set<Car> inventorySet) {
         pane.getChildren().clear();
 
         for (Car car : inventorySet) {
@@ -139,6 +138,52 @@ public class Main extends Application {
 
         Button filterButton = new Button("Filter");
         filterButton.setOnAction((ActionEvent event) -> {
+            inventoryFiltered.clear();
+
+            if (brandAstonCheck.isSelected()) {
+                inventoryFiltered.addAll(CarFilters.filterByBrand(Brand.AstonMartin, inventoryList));
+            }
+            if (brandFerrariCheck.isSelected()) {
+                inventoryFiltered.addAll(CarFilters.filterByBrand(Brand.Ferrari, inventoryList));
+            }
+            if (brandLamboCheck.isSelected()) {
+                inventoryFiltered.addAll(CarFilters.filterByBrand(Brand.Lamborghini, inventoryList));
+            }
+            if (brandMclarenCheck.isSelected()) {
+                inventoryFiltered.addAll(CarFilters.filterByBrand(Brand.McLaren, inventoryList));
+            }
+            if (brandMaseratiCheck.isSelected()) {
+                inventoryFiltered.addAll(CarFilters.filterByBrand(Brand.Maserati, inventoryList));
+            }
+
+            if (colorBlackCheck.isSelected()) {
+                inventoryFiltered.addAll(CarFilters.filterByColor(Color.Black, inventoryList));
+            }
+            if (colorBlueCheck.isSelected()) {
+                inventoryFiltered.addAll(CarFilters.filterByColor(Color.Blue, inventoryList));
+            }
+            if (colorGreenCheck.isSelected()) {
+                inventoryFiltered.addAll(CarFilters.filterByColor(Color.Green, inventoryList));
+            }
+            if (colorOrangeCheck.isSelected()) {
+                inventoryFiltered.addAll(CarFilters.filterByColor(Color.Orange, inventoryList));
+            }
+            if (colorRedCheck.isSelected()) {
+                inventoryFiltered.addAll(CarFilters.filterByColor(Color.Red, inventoryList));
+            }
+            if (colorWhiteCheck.isSelected()) {
+                inventoryFiltered.addAll(CarFilters.filterByColor(Color.White, inventoryList));
+            }
+            if (colorYellowCheck.isSelected()) {
+                inventoryFiltered.addAll(CarFilters.filterByColor(Color.Yellow, inventoryList));
+            }
+
+            if (isConvCheck.isSelected()) {
+                inventoryFiltered.addAll(CarFilters.filterByConv(true, inventoryList));
+            }
+            if (isNotConvCheck.isSelected()) {
+                inventoryFiltered.addAll(CarFilters.filterByConv(false, inventoryList));
+            }
 
         });
 
@@ -283,4 +328,5 @@ public class Main extends Application {
         } catch (IOException | ClassNotFoundException ignored) {
         }
     }
+
 }
