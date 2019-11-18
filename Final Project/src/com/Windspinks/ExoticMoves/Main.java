@@ -180,7 +180,7 @@ public class Main extends Application {
 
             if (isValid) {
                 String confirmationString = "Thank you " + firstName + " " + lastName + " for your purchase of a " +
-                    carToBePurchased.getColor().name() + " " + carToBePurchased.getBrand().name() + ".\n" +
+                    carToBePurchased.getColor().name() + " " + carToBePurchased.getBrand().name() + " for $" + carToBePurchased.getPrice() + "K.\n" +
                     "You will be contacted shortly to arrange pickup or delivery.\n" +
                     "Thank you for choosing Exotic Moves!";
                 Text confirmation = new Text(confirmationString);
