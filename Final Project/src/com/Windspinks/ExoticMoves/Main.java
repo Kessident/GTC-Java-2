@@ -116,13 +116,13 @@ public class Main extends Application {
         VBox isConvFilterBox = new VBox(isConvTitle, isConvCheck, isNotConvCheck);
 
         Text cylinderTitle = new Text("Filter by # Cylinders");
-        CheckBox cylinderCheck4 = new CheckBox("4");
-        cylinderCheck4.setId("cylinderCheckBox4");
         CheckBox cylinderCheck6 = new CheckBox("6");
         cylinderCheck6.setId("cylinderCheckBox6");
         CheckBox cylinderCheck8 = new CheckBox("8");
         cylinderCheck8.setId("cylinderCheckBox8");
-        VBox cylinderFilterBox = new VBox(cylinderTitle, cylinderCheck4, cylinderCheck6, cylinderCheck8);
+        CheckBox cylinderCheck12 = new CheckBox("12");
+        cylinderCheck12.setId("cylinderCheckBox12");
+        VBox cylinderFilterBox = new VBox(cylinderTitle, cylinderCheck6, cylinderCheck8, cylinderCheck12);
 
         Text priceFilterTitle = new Text("Filter by Price (in thousands)\n" +
             "Show all cars less than");
@@ -221,48 +221,48 @@ public class Main extends Application {
 
             if (!ASTON_INVENTORY_FILE_LOCATION.exists()) {
                 ArrayList<Car> astonInitInv = new ArrayList<>();
-                astonInitInv.add(new Aston("Black", true, 0, new File("/resources/images/BlkAstonConvertible.jpg")));
-                astonInitInv.add(new Aston("Blue", false, 0, new File("/resources/images/BluAston.jpg")));
-                astonInitInv.add(new Aston("Green", false, 0, new File("/resources/images/GreenAston.jpg")));
-                astonInitInv.add(new Aston("Red", true, 0, new File("/resources/images/RedAstonConvertible.jpg")));
+                astonInitInv.add(new Aston("Black", true, 12, new File("/resources/images/BlkAstonConvertible.jpg")));
+                astonInitInv.add(new Aston("Blue", false, 12, new File("/resources/images/BluAston.jpg")));
+                astonInitInv.add(new Aston("Green", false, 12, new File("/resources/images/GreenAston.jpg")));
+                astonInitInv.add(new Aston("Red", true, 12, new File("/resources/images/RedAstonConvertible.jpg")));
                 writeInventory(astonInitInv, ASTON_INVENTORY_FILE_LOCATION);
             }
             if (!FERRARI_INVENTORY_FILE_LOCATION.exists()) {
                 ArrayList<Car> ferrariInitInv = new ArrayList<>();
-                ferrariInitInv.add(new Ferrari("Black", true, 0, new File("/resources/images/BlkFerrariConvertible.jpg")));
-                ferrariInitInv.add(new Ferrari("Blue", true, 0, new File("/resources/images/BluFerrariConvertible.jpg")));
-                ferrariInitInv.add(new Ferrari("Red", false, 0, new File("/resources/images/RedFerrari.jpg")));
-                ferrariInitInv.add(new Ferrari("White", false, 0, new File("/resources/images/WhiteFerrari.jpg")));
-                ferrariInitInv.add(new Ferrari("White", true, 0, new File("/resources/images/WhiteFerrConvertible.jpg")));
-                ferrariInitInv.add(new Ferrari("Yellow", false, 0, new File("/resources/images/YellowFerrari.jpg")));
+                ferrariInitInv.add(new Ferrari("Black", true, 8, new File("/resources/images/BlkFerrariConvertible.jpg")));
+                ferrariInitInv.add(new Ferrari("Blue", true, 8, new File("/resources/images/BluFerrariConvertible.jpg")));
+                ferrariInitInv.add(new Ferrari("Red", false, 8, new File("/resources/images/RedFerrari.jpg")));
+                ferrariInitInv.add(new Ferrari("White", false, 8, new File("/resources/images/WhiteFerrari.jpg")));
+                ferrariInitInv.add(new Ferrari("White", true, 8, new File("/resources/images/WhiteFerrConvertible.jpg")));
+                ferrariInitInv.add(new Ferrari("Yellow", false, 8, new File("/resources/images/YellowFerrari.jpg")));
                 writeInventory(ferrariInitInv, FERRARI_INVENTORY_FILE_LOCATION);
             }
             if (!LAMBO_INVENTORY_FILE_LOCATION.exists()) {
                 ArrayList<Car> lamboInitInv = new ArrayList<>();
-                lamboInitInv.add(new Lamborghini("Black", false, 0, new File("/resources/images/BlkLambo.jpg")));
-                lamboInitInv.add(new Lamborghini("Black", true, 0, new File("/resources/images/BlkLamboConvertible.jpg")));
-                lamboInitInv.add(new Lamborghini("Blue", true, 0, new File("/resources/images/BluLamboConvertible.jpg")));
-                lamboInitInv.add(new Lamborghini("Green", false, 0, new File("/resources/images/GreenLambo.jpg")));
-                lamboInitInv.add(new Lamborghini("White", false, 0, new File("/resources/images/WhiteLambo.jpg")));
-                lamboInitInv.add(new Lamborghini("Yellow", false, 0, new File("/resources/images/YellowLambo.jpg")));
+                lamboInitInv.add(new Lamborghini("Black", false, 12, new File("/resources/images/BlkLambo.jpg")));
+                lamboInitInv.add(new Lamborghini("Black", true, 12, new File("/resources/images/BlkLamboConvertible.jpg")));
+                lamboInitInv.add(new Lamborghini("Blue", true, 12, new File("/resources/images/BluLamboConvertible.jpg")));
+                lamboInitInv.add(new Lamborghini("Green", false, 12, new File("/resources/images/GreenLambo.jpg")));
+                lamboInitInv.add(new Lamborghini("White", false, 12, new File("/resources/images/WhiteLambo.jpg")));
+                lamboInitInv.add(new Lamborghini("Yellow", false, 12, new File("/resources/images/YellowLambo.jpg")));
                 writeInventory(lamboInitInv, LAMBO_INVENTORY_FILE_LOCATION);
             }
             if (!MCLAREN_INVENTORY_FILE_LOCATION.exists()) {
                 ArrayList<Car> mclarenInitInv = new ArrayList<>();
-                mclarenInitInv.add(new McLaren("Black", false, 0, new File("/resources/images/BlkMcLaren.jpg")));
-                mclarenInitInv.add(new McLaren("Blue", false, 0, new File("/resources/images/BluMcLaren.jpg")));
-                mclarenInitInv.add(new McLaren("Green", false, 0, new File("/resources/images/GreenMcLaren.jpg")));
-                mclarenInitInv.add(new McLaren("Orange", true, 0, new File("/resources/images/OranMcLarConvertible.jpg")));
-                mclarenInitInv.add(new McLaren("Red", false, 0, new File("/resources/images/RedMcLaren.jpg")));
-                mclarenInitInv.add(new McLaren("Yellow", false, 0, new File("/resources/images/YellowMcLaren.jpg")));
+                mclarenInitInv.add(new McLaren("Black", false, 8, new File("/resources/images/BlkMcLaren.jpg")));
+                mclarenInitInv.add(new McLaren("Blue", false, 8, new File("/resources/images/BluMcLaren.jpg")));
+                mclarenInitInv.add(new McLaren("Green", false, 8, new File("/resources/images/GreenMcLaren.jpg")));
+                mclarenInitInv.add(new McLaren("Orange", true, 8, new File("/resources/images/OranMcLarConvertible.jpg")));
+                mclarenInitInv.add(new McLaren("Red", false, 8, new File("/resources/images/RedMcLaren.jpg")));
+                mclarenInitInv.add(new McLaren("Yellow", false, 8, new File("/resources/images/YellowMcLaren.jpg")));
                 writeInventory(mclarenInitInv, MCLAREN_INVENTORY_FILE_LOCATION);
             }
             if (!MASERATI_INVENTORY_FILE_LOCATION.exists()) {
                 ArrayList<Car> maseratiInitInv = new ArrayList<>();
-                maseratiInitInv.add(new Maserati("Black", false, 0, new File("/resources/images/BlkMaserati.jpg")));
-                maseratiInitInv.add(new Maserati("Blue", false, 0, new File("/resources/images/BluMaserati.jpg")));
-                maseratiInitInv.add(new Maserati("Red", false, 0, new File("/resources/images/RedMaserati.jpg")));
-                maseratiInitInv.add(new Maserati("White", true, 0, new File("/resources/images/WhiteMaserConvertible.jpg")));
+                maseratiInitInv.add(new Maserati("Black", false, 6, new File("/resources/images/BlkMaserati.jpg")));
+                maseratiInitInv.add(new Maserati("Blue", false, 6, new File("/resources/images/BluMaserati.jpg")));
+                maseratiInitInv.add(new Maserati("Red", false, 6, new File("/resources/images/RedMaserati.jpg")));
+                maseratiInitInv.add(new Maserati("White", true, 6, new File("/resources/images/WhiteMaserConvertible.jpg")));
                 writeInventory(maseratiInitInv, MASERATI_INVENTORY_FILE_LOCATION);
             }
         }
