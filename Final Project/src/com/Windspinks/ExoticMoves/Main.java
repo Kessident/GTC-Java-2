@@ -39,11 +39,12 @@ public class Main extends Application {
         createInitialInventory();
         readInventory();
         VBox outerBox = new VBox();
+        Scene scene = new Scene(outerBox);
         Label exoticMovesTitle = new Label("Exotic Moves");
         exoticMovesTitle.setId("ExoticMovesTitle");
         outerBox.setAlignment(Pos.TOP_CENTER);
         outerBox.getChildren().add(exoticMovesTitle);
-        outerBox.getChildren().add(createFilterBox());
+        outerBox.getChildren().add(createFilterBox(scene));
 
         FlowPane inventoryFlowPane = new FlowPane();
         inventoryFlowPane.setId("InventoryPane");
@@ -55,7 +56,6 @@ public class Main extends Application {
 
         outerBox.getChildren().add(inventoryScrollPane);
 
-        Scene scene = new Scene(outerBox);
         scene.getStylesheets().add(getClass().getResource("ExoticMoves.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("Exotic Moves");
@@ -77,7 +77,7 @@ public class Main extends Application {
         }
     }
 
-    private HBox createFilterBox() {
+    private HBox createFilterBox(Scene scene) {
         Text brandFilterTitle = new Text("Filter by brand");
         CheckBox brandAstonCheck = new CheckBox("Aston Martin");
         brandAstonCheck.setId("brandAstonCheckBox");
@@ -185,6 +185,22 @@ public class Main extends Application {
                 inventoryFiltered.addAll(CarFilters.filterByConv(false, inventoryList));
             }
 
+            if (cylinderCheck6.isSelected()) {
+                inventoryFiltered.addAll(CarFilters.filterByNumCylinders(6, inventoryList));
+            }
+            if (cylinderCheck8.isSelected()) {
+                inventoryFiltered.addAll(CarFilters.filterByNumCylinders(8, inventoryList));
+            }
+            if (cylinderCheck12.isSelected()) {
+                inventoryFiltered.addAll(CarFilters.filterByNumCylinders(12, inventoryList));
+            }
+
+            double lowerThanPrice = priceFilterSlider.getValue();
+            inventoryFiltered.addAll(CarFilters.filterByPrice(lowerThanPrice, inventoryList));
+
+            FlowPane flowPane = (FlowPane) scene.lookup("#InventoryPane");
+            populatePaneWithCarCards(flowPane, inventoryFiltered);
+
         });
 
         Button clearFilterButton = new Button("Clear Filters");
@@ -203,10 +219,13 @@ public class Main extends Application {
             colorYellowCheck.setSelected(false);
             isConvCheck.setSelected(false);
             isNotConvCheck.setSelected(false);
-            cylinderCheck4.setSelected(false);
             cylinderCheck6.setSelected(false);
             cylinderCheck8.setSelected(false);
+            cylinderCheck12.setSelected(false);
             priceFilterSlider.setValue(priceFilterSlider.getMax());
+
+            FlowPane flowPane = (FlowPane) scene.lookup("#InventoryPane");
+            populatePaneWithCarCards(flowPane, inventoryList);
         });
 
         return new HBox(brandFilterBox, colorFilterBox, isConvFilterBox, cylinderFilterBox, priceFilterBox, filterButton, clearFilterButton);
