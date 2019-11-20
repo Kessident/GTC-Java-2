@@ -12,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -33,7 +32,6 @@ public class Main extends Application {
     private final File MASERATI_INVENTORY_FILE_LOCATION = new File("src/resources/inventory/maserati.dat");
     private Set<Car> inventoryList = new HashSet<>();
     private Set<Car> inventoryFiltered = new HashSet<>();
-    private ArrayList<CheckBox> filtersList = new ArrayList<>();
 
     public static void main(String[] args) {
         launch(args);
@@ -548,5 +546,4 @@ public class Main extends Application {
     private static Stage getPStage() {
         return pStage;
     }
-
 }
