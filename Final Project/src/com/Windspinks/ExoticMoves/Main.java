@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -178,7 +179,7 @@ public class Main extends Application {
 
             //Phone Number - Not Empty, All Digits, length 10
             String phoneNum = phoneInput.getText();
-            if (phoneNum.length() != 10 ||!phoneNum.chars().allMatch(Character::isDigit)) {
+            if (phoneNum.length() != 10 || !phoneNum.chars().allMatch(Character::isDigit)) {
                 isValid = false;
                 phoneInput.getStyleClass().add("invalid-input");
                 phoneInput.setTooltip(new Tooltip("Must not be empty, Digits only, length 10"));
@@ -252,6 +253,7 @@ public class Main extends Application {
         CheckBox brandMaseratiCheck = new CheckBox("Maserati");
         brandMaseratiCheck.setId("brandMaseratiCheckBox");
         VBox brandFilterBox = new VBox(brandFilterTitle, brandAstonCheck, brandFerrariCheck, brandLamboCheck, brandMclarenCheck, brandMaseratiCheck);
+        brandFilterBox.getStyleClass().add("filter-box");
 
         Text colorFilterTitle = new Text("Filter by Color");
         CheckBox colorBlackCheck = new CheckBox("Black");
@@ -269,6 +271,7 @@ public class Main extends Application {
         CheckBox colorYellowCheck = new CheckBox("Yellow");
         colorYellowCheck.setId("colorYellowCheckBox");
         VBox colorFilterBox = new VBox(colorFilterTitle, colorBlackCheck, colorBlueCheck, colorGreenCheck, colorOrangeCheck, colorRedCheck, colorWhiteCheck, colorYellowCheck);
+        colorFilterBox.getStyleClass().add("filter-box");
 
         Text isConvTitle = new Text("Filter by Y/N Convertible");
         CheckBox isConvCheck = new CheckBox("Yes");
@@ -276,6 +279,7 @@ public class Main extends Application {
         CheckBox isNotConvCheck = new CheckBox("No");
         isNotConvCheck.setId("isNotConvCheckbox");
         VBox isConvFilterBox = new VBox(isConvTitle, isConvCheck, isNotConvCheck);
+        isConvFilterBox.getStyleClass().add("filter-box");
 
         Text cylinderTitle = new Text("Filter by # Cylinders");
         CheckBox cylinderCheck6 = new CheckBox("6");
@@ -285,6 +289,7 @@ public class Main extends Application {
         CheckBox cylinderCheck12 = new CheckBox("12");
         cylinderCheck12.setId("cylinderCheckBox12");
         VBox cylinderFilterBox = new VBox(cylinderTitle, cylinderCheck6, cylinderCheck8, cylinderCheck12);
+        cylinderFilterBox.getStyleClass().add("filter-box");
 
         Text priceFilterTitle = new Text("Filter by Price (in thousands)\n" +
             "Show all cars less than");
