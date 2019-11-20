@@ -115,31 +115,37 @@ public class Main extends Application {
 
         Label firstNameLabel = new Label("First name: ");
         TextField firstNameInput = new TextField();
+        firstNameInput.setPromptText("John");
         HBox firstNameBox = new HBox(firstNameLabel, firstNameInput);
         firstNameBox.setAlignment(Pos.CENTER_LEFT);
 
         Label lastNameLabel = new Label("Last name: ");
         TextField lastNameInput = new TextField();
+        lastNameInput.setPromptText("Smith");
         HBox lastNameBox = new HBox(lastNameLabel, lastNameInput);
         lastNameBox.setAlignment(Pos.CENTER_LEFT);
 
         Label phoneLabel = new Label("Phone Number: ");
         TextField phoneInput = new TextField();
+        phoneInput.setPromptText("1115551234");
         HBox phoneBox = new HBox(phoneLabel, phoneInput);
         phoneBox.setAlignment(Pos.CENTER_LEFT);
 
         Label creditLabel = new Label("Credit card number: ");
         TextField creditInput = new TextField();
+        creditInput.setPromptText("1111222233334444");
         HBox creditBox = new HBox(creditLabel, creditInput);
         creditBox.setAlignment(Pos.CENTER_LEFT);
 
         Label creditExpDateLabel = new Label("Exp Date: ");
         DatePicker creditExpDateInput = new DatePicker();
+        creditExpDateInput.setPromptText("MM/DD/YYYY");
         HBox creditExpDateBox = new HBox(creditExpDateLabel, creditExpDateInput);
         creditExpDateBox.setAlignment(Pos.CENTER_LEFT);
 
         Label cvvLabel = new Label("CVV: ");
         TextField cvvInput = new TextField();
+        cvvInput.setPromptText("123");
         HBox cvvBox = new HBox(cvvLabel, cvvInput);
         cvvBox.setAlignment(Pos.CENTER_LEFT);
 
@@ -152,30 +158,66 @@ public class Main extends Application {
             String firstName = firstNameInput.getText();
             if (firstName.isEmpty() || !firstName.chars().allMatch(Character::isLetter)) {
                 isValid = false;
+                firstNameInput.getStyleClass().add("invalid-input");
+                firstNameInput.setTooltip(new Tooltip("Must not be empty, A-Z only"));
+            } else {
+                firstNameInput.getStyleClass().remove("invalid-input");
+                firstNameInput.setTooltip(null);
             }
 
             //Last Name - Not Empty, a-Z
             String lastName = lastNameInput.getText();
             if (lastName.isEmpty() || !lastName.chars().allMatch(Character::isLetter)) {
                 isValid = false;
+                lastNameInput.getStyleClass().add("invalid-input");
+                lastNameInput.setTooltip(new Tooltip("Must not be empty, A-Z Only"));
+            } else {
+                lastNameInput.getStyleClass().remove("invalid-input");
+                lastNameInput.setTooltip(null);
+            }
+
+            //Phone Number - Not Empty, All Digits, length 10
+            String phoneNum = phoneInput.getText();
+            if (phoneNum.length() != 10 ||!phoneNum.chars().allMatch(Character::isDigit)) {
+                isValid = false;
+                phoneInput.getStyleClass().add("invalid-input");
+                phoneInput.setTooltip(new Tooltip("Must not be empty, Digits only, length 10"));
+            } else {
+                phoneInput.getStyleClass().remove("invalid-input");
+                phoneInput.setTooltip(null);
             }
 
             //Credit Number - Not Empty, All Digits, Length 16
             String creditNumber = creditInput.getText();
             if (creditNumber.isEmpty() || !creditNumber.chars().allMatch(Character::isDigit) || creditNumber.length() != 16) {
                 isValid = false;
+                creditInput.getStyleClass().add("invalid-input");
+                creditInput.setTooltip(new Tooltip("Must not be empty, Digits only, length 16"));
+            } else {
+                creditInput.getStyleClass().remove("invalid-input");
+                creditInput.setTooltip(null);
             }
 
             //DATE - Exists, Date has not passed
             LocalDate expDate = creditExpDateInput.getValue();
             if (expDate == null || expDate.isBefore(LocalDate.now())) {
                 isValid = false;
+                creditExpDateInput.getStyleClass().add("invalid-input");
+                creditExpDateInput.setTooltip(new Tooltip("Must be a valid date that has not passed"));
+            } else {
+                creditExpDateInput.getStyleClass().remove("invalid-input");
+                creditExpDateInput.setTooltip(null);
             }
 
             //CVV - Not Empty, All Digits, Length 3
             String cvv = cvvInput.getText();
             if (cvv.isEmpty() || !cvv.chars().allMatch(Character::isDigit) || cvv.length() != 3) {
                 isValid = false;
+                cvvInput.getStyleClass().add("invalid-input");
+                cvvInput.setTooltip(new Tooltip("Must not be empty, Digits only, length 3"));
+            } else {
+                cvvInput.getStyleClass().remove("invalid-input");
+                cvvInput.setTooltip(null);
             }
 
             if (isValid) {
